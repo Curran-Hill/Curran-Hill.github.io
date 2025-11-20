@@ -1,0 +1,33 @@
+title: Curran Hill - Cybersecurity Portfolio
+email: curran.hill@protonmail.com
+description: Cybersecurity Student | 1337 | Arch btw
+baseurl: ""
+url: "https://Curran-Hill.github.io"
+
+# Build settings
+markdown: kramdown
+theme: null
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

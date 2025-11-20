@@ -27,6 +27,9 @@ defaults:
 
 # Exclude from processing
 exclude:
+  -Templates
+  -.gitignore
+  -.obsidian
   - Gemfile
   - Gemfile.lock
   - node_modules

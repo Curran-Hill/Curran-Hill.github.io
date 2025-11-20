@@ -27,7 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Template/Blog.md",
+                "file": "Templates/Blog.md",
                 "mode": "source",
                 "source": false
               },
@@ -200,8 +200,8 @@
   },
   "active": "ba19d6e3a2cd89aa",
   "lastOpenFiles": [
-    "Template/Blog.md",
-    "Template/HTB.md",
-    "Template"
+    "Templates/Blog.md",
+    "Templates/HTB.md",
+    "Templates"
   ]
 }

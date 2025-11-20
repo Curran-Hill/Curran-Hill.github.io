@@ -1,7 +1,0 @@
-# Header
-
-words
-
-```
-code
-```

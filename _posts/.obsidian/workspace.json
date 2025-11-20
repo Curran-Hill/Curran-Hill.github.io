@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Templates/Blog.md",
+                "file": "Templates/YYYY-MM-DD-blog-title.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Blog"
+              "title": "YYYY-MM-DD-blog-title"
             }
           },
           {
@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blog/2025-11-20-testing.md",
+                "file": "Templates/YYYY-MM-DD-blog-title.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-11-20-testing"
+              "title": "YYYY-MM-DD-blog-title"
             }
           }
         ],
@@ -214,11 +214,11 @@
   },
   "active": "62ff089ec06b03f6",
   "lastOpenFiles": [
-    "Templates/Blog.md",
+    "Templates/YYYY-MM-DD-HTB-title.md",
+    "Templates/YYYY-MM-DD-blog-title.md",
     "blog/2025-11-20-testing.md",
     "blog/test blog.md",
     "htb/test writeup.md",
-    "Templates/HTB.md",
     "Templates"
   ]
 }

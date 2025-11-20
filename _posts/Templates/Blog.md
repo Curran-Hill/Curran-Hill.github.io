@@ -2,6 +2,6 @@
 layout: post
 title:
 date:
-categories: htb
+categories: blog
 tags:
 ---

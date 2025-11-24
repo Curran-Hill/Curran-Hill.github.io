@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Templates/YYYY-MM-DD-blog-title.md",
+                "file": "htb/2025-11-24-Outbound.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "YYYY-MM-DD-blog-title"
+              "title": "2025-11-24-Outbound"
             }
           }
         ],
@@ -214,8 +214,23 @@
   },
   "active": "62ff089ec06b03f6",
   "lastOpenFiles": [
-    "Templates/YYYY-MM-DD-HTB-title.md",
+    "assets/htb/HTB-banner.png",
+    "assets/htb/Outbound/wget.png",
+    "assets/htb/Outbound/version-vuln.png",
+    "assets/htb/Outbound/user-flag.png",
+    "assets/htb/Outbound/su-jacob.png",
+    "assets/htb/Outbound/sudo-l.png",
+    "assets/htb/Outbound/session-lookup-encoded.png",
+    "assets/htb/Outbound/Roundcube login.png",
+    "assets/htb/Outbound/root-flag.png",
+    "assets/htb/Outbound/python-server.png",
+    "assets/htb/Outbound/PWNED.png",
+    "assets/htb/Outbound",
+    "assets/htb",
+    "assets",
     "Templates/YYYY-MM-DD-blog-title.md",
+    "htb/2025-11-24-Outbound.md",
+    "Templates/YYYY-MM-DD-HTB-title.md",
     "blog/2025-11-20-testing.md",
     "blog/test blog.md",
     "htb/test writeup.md",

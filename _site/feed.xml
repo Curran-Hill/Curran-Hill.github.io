@@ -1,5 +1,109 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4444/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4444/" rel="alternate" type="text/html" /><updated>2025-11-24T15:18:10-06:00</updated><id>http://localhost:4444/feed.xml</id><title type="html">Curran Hill - Cybersecurity Portfolio</title><subtitle>Cybersecurity Protfolio</subtitle><entry><title type="html">test blog</title><link href="http://localhost:4444/testing/2025/11/20/testing/" rel="alternate" type="text/html" title="test blog" /><published>2025-11-20T00:00:00-06:00</published><updated>2025-11-20T00:00:00-06:00</updated><id>http://localhost:4444/testing/2025/11/20/testing</id><content type="html" xml:base="http://localhost:4444/testing/2025/11/20/testing/"><![CDATA[<h1 id="heading">Heading</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4444/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4444/" rel="alternate" type="text/html" /><updated>2025-11-24T16:04:06-06:00</updated><id>http://localhost:4444/feed.xml</id><title type="html">Curran Hill - Cybersecurity Portfolio</title><subtitle>Cybersecurity Protfolio</subtitle><entry><title type="html">Outbound</title><link href="http://localhost:4444/htb/2025/11/24/Outbound/" rel="alternate" type="text/html" title="Outbound" /><published>2025-11-24T00:00:00-06:00</published><updated>2025-11-24T00:00:00-06:00</updated><id>http://localhost:4444/htb/2025/11/24/Outbound</id><content type="html" xml:base="http://localhost:4444/htb/2025/11/24/Outbound/"><![CDATA[<p>![[HTB-banner.png]]
+![[PWNED.png]]</p>
+<div style="page-break-after: always;"></div>
 
-<p>words</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code
-</code></pre></div></div>]]></content><author><name></name></author><category term="testing" /><category term="testing" /><summary type="html"><![CDATA[Heading]]></summary></entry></feed>
+<h1 id="description"><strong>Description:</strong></h1>
+<p>Outbound is an easy Linux box that utilizes two known exploits.</p>
+
+<h4 id="difficultyeasy">Difficulty:<code class="language-plaintext highlighter-rouge">Easy</code></h4>
+<h4 id="operating-system-linux">Operating System: <code class="language-plaintext highlighter-rouge">Linux</code></h4>
+
+<h4 id="default-creds-tyler--lhkl1o9nm3x2">Default Creds: <code class="language-plaintext highlighter-rouge">tyler / LhKL1o9Nm3X2</code></h4>
+
+<h1 id="skills-required"><strong>Skills Required:</strong></h1>
+<ul>
+  <li>Linux file system understanding</li>
+  <li>Basic SQL commands</li>
+  <li>Basic understanding of decryption techniques
+    <h1 id="tools-used"><strong>Tools Used:</strong></h1>
+  </li>
+  <li>nmap</li>
+  <li>netcat</li>
+  <li>ssh</li>
+</ul>
+<div style="page-break-after: always;"></div>
+<h1 id="enumeration"><strong>Enumeration</strong></h1>
+<hr />
+<h2 id="port-scanning---nmap">Port Scanning - Nmap</h2>
+<hr />
+<p>![[nmap-enum.png]]
+On the nmap scan we see two open ports, one of which is a website running on port 80, the other is ssh on port 22.</p>
+<div style="page-break-after: always;"></div>
+
+<p>![[Roundcube login.png]]
+Here we are greeted with a login page which we can put the default credentials into. Upon logging in, Roundcube Webmail looks like a normal email client.</p>
+
+<p>![[version-vuln.png]]
+Upon looking around, we notice that Roundcube Webmail is out of date. (Current version as of writing is 1.6.11) Because of this, we can search for known vulnerabilities. That is linked below. Also linked is the website revshells. This website will create a custom payload for your attack.
+https://github.com/fearsoff-org/CVE-2025-49113
+https://www.revshells.com/</p>
+
+<div style="page-break-after: always;"></div>
+
+<h1 id="foothold"><strong>Foothold</strong></h1>
+<hr />
+<h2 id="user-enumeration">User Enumeration</h2>
+<hr />
+<p>![[CVE-2025-49113.png]]
+![[nc listener.png]]
+After running the payload we have a reverse shell as www-data. Because there is a login page, I wanted to see if there was a database storing user credentials. I navigated to the directory <code class="language-plaintext highlighter-rouge">/var/www/html/roundcube</code>. The config directory here is home to a few PHP files, one of which is interesting. We will be looking at config.inc.php.</p>
+
+<p>![[php-config.png]]
+There are two important pieces of information in this file. The first of which is highlighted in green, and shows the database’s username and password. Second, highlighted in pink, is an encryption key used for passwords.</p>
+
+<p>With the credentials we now have, we should be able to query the database to try and find a vulnerable user.</p>
+
+<p>![[session-lookup-encoded.png]]
+When viewing the session table, we are met with a large base64 encoded string, lets decode it.</p>
+
+<p>![[decoded-session.png]]
+In this decoded text blob there are two important pieces of information. We have a user called “jacob” and we have an encrypted password for jacob.</p>
+
+<p>To decrypt this password we need some sort of script. I chose this one:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">DES3</span>
+<span class="kn">import</span> <span class="n">base64</span>
+
+<span class="n">des_key</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="s">rcmail-!24ByteDESkey*Str</span><span class="sh">'</span>
+<span class="n">encrypted_b64</span> <span class="o">=</span> <span class="sh">"</span><span class="s">L7Rv00A8TuwJAr67kITxxcSgnIk25Am/</span><span class="sh">"</span>
+
+<span class="n">encrypted_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64decode</span><span class="p">(</span><span class="n">encrypted_b64</span><span class="p">)</span>
+<span class="n">iv</span> <span class="o">=</span> <span class="n">encrypted_bytes</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">ciphertext</span> <span class="o">=</span> <span class="n">encrypted_bytes</span><span class="p">[</span><span class="mi">8</span><span class="p">:]</span>
+<span class="n">cipher</span> <span class="o">=</span> <span class="n">DES3</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">des_key</span><span class="p">,</span> <span class="n">DES3</span><span class="p">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+<span class="n">decrypted_bytes</span> <span class="o">=</span> <span class="n">cipher</span><span class="p">.</span><span class="nf">decrypt</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">unpad</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Decrypted password:</span><span class="sh">"</span><span class="p">,</span> <span class="nf">unpad</span><span class="p">(</span><span class="n">decrypted_bytes</span><span class="p">).</span><span class="nf">decode</span><span class="p">())</span>
+</code></pre></div></div>
+<p>It utilizes the key we found earlier, along with some base64, to decrypt the password for jacob.</p>
+
+<p>![[jacob-passwd.png]]
+This password does not work for ssh as jacob, however we can switch users in the reverse shell.</p>
+
+<p>![[su-jacob.png]]
+Navigating to <code class="language-plaintext highlighter-rouge">/home/jacob/mail</code> we can see the mail inbox for jacob. If we read the only piece of mail in there, we are given another password for jacob.</p>
+
+<p>![[jacob-ssh-passwd.png]]
+This password lets us ssh as jacob and get the user flag.</p>
+
+<p>![[user-flag.png]]</p>
+<div style="page-break-after: always;"></div>
+
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+<hr />
+<p>![[sudo-l.png]]
+Looking at what jacob can run as sudo, we see that he has access to the system data monitoring and recording tool Below.</p>
+
+<p>The version of Below running is vulnerable to CVE-2025-27591, which is linked here:
+https://github.com/BridgerAlderson/CVE-2025-27591-PoC</p>
+
+<p>![[python-server.png]]</p>
+
+<p>![[wget.png]]
+After downloading the exploit on our local machine, we make a python server so that we can download the exploit onto the vulnerable machine using wget.</p>
+
+<p>![[get-pwned-kid.png]]
+After giving the exploit execute privileges, we run the command. We now have root.</p>
+
+<p>![[root-flag.png]]</p>]]></content><author><name></name></author><category term="htb" /><category term="CVE" /><category term="SQL" /><category term="Cryptograohy" /><summary type="html"><![CDATA[![[HTB-banner.png]] ![[PWNED.png]]]]></summary></entry></feed>

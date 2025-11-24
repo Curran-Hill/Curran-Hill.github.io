@@ -10,6 +10,7 @@ theme: null
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-spaceship
 
 # Collections
 collections:

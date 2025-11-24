@@ -1,32 +1,499 @@
 ---
 layout: home
 sticky_nav: true
+title: "Home"
 ---
 
-<section class='about'>
-  <div class='container'>
+<!-- About Section -->
+<section class="about">
+  <div class="container">
     <h2>About Me</h2>
-    <p class='about_bio'>
-      Lorem ipsum
+    <p class="a bout__bio">
+      I am a cyberseturity student at the University of Texas at San Antonio, currently in my freshman year. Check out my blog posts to see things I am learning or working on. Checkout my HTB writeups to see what boxes I've conquered. To see me on Github, LinkedIn, or Hack The Box you can use the links in the "Get In Touch" section. My professional email is also linked there.
     </p>
   </div>
 </section>
 
-<section class='certs'>
-  <div class='container'>
-    <h2>Certifications<h2>
-    <div class='cert_grid'>
-
+<!-- Certifications Section -->
+<section class="certifications">
+  <div class="container">
+    <h2>Certifications</h2>
+    <div class="cert-grid">
+      
+      <div class="cert-card">
+        <img src="assets/images/comming-soon.jpg" alt="CompTIA Security+" class="cert-card__badge-image">
+        <h3 class="cert-card__title">CompTIA Security+</h3>
+        <p class="cert-card__status">In Progress</p>
+        <p class="cert-card__date">Expected: December 2025</p>
+      </div>
+      
+      <div class="cert-card">
+        <img src="assets/images/comming-soon.jpg" alt="Network+" class="cert-card__badge-image">
+        <h3 class="cert-card__title">CompTIA Network+</h3>
+        <p class="cert-card__status">Planned</p>
+        <p class="cert-card__date">Expected: Winter/Spring 2026</p>
+      </div>
+      
+      <div class="cert-card">
+        <img src="assets/images/comming-soon.jpg" alt="CPTS" class="cert-card__badge-image">
+        <h3 class="cert-card__title">HTB CPTS</h3>
+        <p class="cert-card__status">Planned</p>
+        <p class="cert-card__date">Expected: Fall/Summer 2026</p>
+      </div>
+      
     </div>
   </div>
 </section>
 
-<section class='contact_info'>
-  <div class='container'>
-    <h2>My Links</h2
-    <div class='contact_links'>
+<!-- Awards and Accolades Section -->
+<section class="awards">
+  <div class="container">
+    <h2>Awards and Accolades</h2>
+    <div class="awards-grid">
+      
+      <div class="award-card">
+        <img src="assets/images/UND-2025-Finalist.png" alt="UND CyberHawks Finalist" class="award-card__badge">
+        <h3 class="award-card__title">UND CyberHawks Finalist</h3>
+        <p class="award-card__role">Team Captain</p>
+        <p class="award-card__info">Competed against 90+ teams from all over the U.S. and qualified for finals</p>
+        <p class="award-card__date">2025</p>
+      </div>
+     
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact">
+  <div class="container">
+    <h2>Get In Touch</h2>
+    <div class="contact__links">
+      <a href="https://github.com/Curran-Hill" target="_blank" rel="noopener noreferrer" class="contact__link">
+        <svg class="contact__icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+      <a href="https://linkedin.com/in/curran-hill" target="_blank" rel="noopener noreferrer" class="contact__link">
+        <svg class="contact__icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+        <span>LinkedIn</span>
+      </a>
+      <a href="https://app.hackthebox.com/users/2121810" target="_blank" rel="noopener noreferrer" class="contact__link">
+        <svg class="contact__icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M11.996 0L1.122 6.02v11.959l10.874 6.021 10.874-6.021V6.021L11.996 0zm9.458 16.921l-9.458 5.239-9.458-5.239V7.079l9.458-5.239 9.458 5.239v9.842z"/>
+          <path d="M11.996 4.675L6.818 7.5v5.65l5.178 2.825 5.178-2.825V7.5l-5.178-2.825zm3.59 8.05l-3.59 1.959-3.59-1.959V8.925l3.59-1.959 3.59 1.959v3.8z"/>
+        </svg>
+        <span>Hack The Box</span>
+      </a>
+      <a href="mailto:curran.hill@protonmail.com" class="contact__link">
+        <svg class="contact__icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
+        </svg>
+        <span>Email</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HTB Preview Section -->
+<section class="preview preview--htb">
+  <div class="container">
+    <div class="preview__header">
+      <h2>Recent HTB Write-ups</h2>
+      <a href="{{ '/htb.html' | relative_url }}" class="btn btn--secondary btn--small">View All</a>
+    </div>
     
+    <div class="card-grid">
+      {% assign htb_posts = site.posts | where: "categories", "htb" | limit: 3 %}
+      {% if htb_posts.size > 0 %}
+        {% for post in htb_posts %}
+          <article class="card htb-preview-card">
+            <div class="htb-card__image-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+            <div class="card__meta">
+              <span class="badge badge--{{ post.difficulty | downcase }}">{{ post.difficulty }}</span>
+              <span class="badge">{{ post.os }}</span>
+            </div>
+            <h3 class="card__title">{{ post.title }}</h3>
+            <p class="card__date">{{ post.date | date: "%B %d, %Y" }}</p>
+            {% if post.tags %}
+              <div class="tags">
+                {% for tag in post.tags limit: 3 %}
+                  <span class="tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+            <a href="{{ post.url | relative_url }}" class="btn btn--primary btn--small mt-md">Read Write-up</a>
+          </article>
+        {% endfor %}
+      {% else %}
+        <p class="no-content">No HTB write-ups yet. Check back soon!</p>
+      {% endif %}
     </div>
   </div>
 </section>
 
+<!-- Blog Preview Section -->
+<section class="preview preview--blog">
+  <div class="container">
+    <div class="preview__header">
+      <h2>Recent Blog Posts</h2>
+      <a href="{{ '/blog.html' | relative_url }}" class="btn btn--secondary btn--small">View All</a>
+    </div>
+    
+    <div class="blog-tiles">
+      {% assign blog_posts = site.posts | where_exp: "post", "post.categories contains 'blog'" | limit: 6 %}
+      {% if blog_posts.size > 0 %}
+        {% for post in blog_posts %}
+          <article class="blog-tile">
+            <h3 class="blog-tile__title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            {% if post.tags %}
+              <div class="tags">
+                {% for tag in post.tags limit: 3 %}
+                  <span class="tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      {% else %}
+        <p class="no-content">No blog posts yet. Check back soon!</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+/* Hero Section - in home.html layout */
+.hero {
+  text-align: center;
+  padding: 4rem 0;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hero__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__tagline {
+  font-size: 1.25rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* About Section */
+.about {
+  padding: 3rem 0;
+}
+
+.about__bio {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Certifications Section */
+.certifications {
+  padding: 3rem 0;
+  background-color: var(--color-surface);
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.cert-card {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.cert-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.cert-card__badge-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.cert-card__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.cert-card__date {
+  color: var(--text-dim);
+  font-size: 0.875rem;
+}
+
+/* Awards and Accolades Section - HORIZONTAL LAYOUT */
+.awards {
+  padding: 3rem 0;
+  background-color: var(--color-surface);
+}
+
+.awards h2 {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.awards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.award-card {
+  background: var(--color-background);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.15s;
+}
+
+.award-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.award-card__badge {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.award-card__content {
+  flex: 1;
+  text-align: left;
+}
+
+.award-card__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.award-card__role {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.award-card__info {
+  color: var(--text-dim);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.award-card__date {
+  color: var(--text-subtle);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .award-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .award-card__content {
+    text-align: center;
+  }
+}
+
+/* Contact Section */
+.contact {
+  padding: 3rem 0;
+}
+
+.contact h2 {
+  text-align: center;
+}
+
+.contact__links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 2rem auto 0;
+}
+
+.contact__link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  color: var(--text-dim);
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.contact__link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.contact__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Preview Sections */
+.preview {
+  padding: 3rem 0;
+}
+
+.preview--htb {
+  background-color: var(--color-surface);
+}
+
+.preview__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* HTB Card Image Placeholder */
+.htb-card__image-placeholder {
+  width: 100%;
+  height: 150px;
+  background: var(--color-secondary);
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-subtle);
+}
+
+.htb-card__image-placeholder svg {
+  width: 48px;
+  height: 48px;
+}
+
+.card__meta {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.card__date {
+  color: var(--text-subtle);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+/* Blog Tiles */
+.blog-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.blog-tile {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: all 0.15s;
+}
+
+.blog-tile:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.blog-tile__title {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-tile__title a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.blog-tile__title a:hover {
+  color: var(--accent);
+}
+
+.no-content {
+  text-align: center;
+  color: var(--text-subtle);
+  font-style: italic;
+  padding: 2rem;
+  grid-column: 1 / -1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+  
+  .hero__tagline {
+    font-size: 1rem;
+  }
+  
+  .preview__header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .contact__links {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-tiles {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

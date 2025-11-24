@@ -95,8 +95,9 @@
 
       <!-- Post Content -->
     <div class="post-content">
-      <p>![[_posts/assets/htb/HTB-banner.png]]
-![[PWNED.png]]</p>
+      <p><img src="/assets/images/htb_imgs/HTB-banner.png" alt="HTB-banner"></p>
+
+<p><img src="/assets/images/htb_imgs/Outbound/PWNED.png" alt="PWNED"></p>
 <div style="page-break-after: always;"></div>
 
 <h1 id="description"><strong>Description:</strong></h1>
@@ -114,29 +115,37 @@
 <ul>
   <li>Linux file system understanding</li>
   <li>Basic SQL commands</li>
-  <li>Basic understanding of decryption techniques
-    <h1 id="tools-used"><strong>Tools Used:</strong></h1>
-  </li>
+  <li>Basic understanding of decryption techniques</li>
+</ul>
+
+<h1 id="tools-used"><strong>Tools Used:</strong></h1>
+<ul>
   <li>nmap</li>
   <li>netcat</li>
   <li>ssh</li>
 </ul>
+
 <div style="page-break-after: always;"></div>
+
 <h1 id="enumeration"><strong>Enumeration</strong></h1>
 <hr>
 <h2 id="port-scanning---nmap">Port Scanning - Nmap</h2>
 <hr>
-<p>![[nmap-enum.png]]
+<p><img src="/assets/images/htb_imgs/Outbound/nmap-enum.png" alt="Nmap Enum">
 On the nmap scan we see two open ports, one of which is a website running on port 80, the other is ssh on port 22.</p>
 <div style="page-break-after: always;"></div>
 
-<p>![[Roundcube login.png]]
-Here we are greeted with a login page which we can put the default credentials into. Upon logging in, Roundcube Webmail looks like a normal email client.</p>
+<p><img src="/assets/images/htb_imgs/Outbound/Roundcube-login.png" alt="Roundcube Login"></p>
 
-<p>![[version-vuln.png]]
-Upon looking around, we notice that Roundcube Webmail is out of date. (Current version as of writing is 1.6.11) Because of this, we can search for known vulnerabilities. That is linked below. Also linked is the website revshells. This website will create a custom payload for your attack.
-https://github.com/fearsoff-org/CVE-2025-49113
-https://www.revshells.com/</p>
+<p>Here we are greeted with a login page which we can put the default credentials into. Upon logging in, Roundcube Webmail looks like a normal email client.</p>
+
+<p><img src="/assets/images/htb_imgs/Outbound/version-vuln.png" alt="Version Number"></p>
+
+<p>Upon looking around, we notice that Roundcube Webmail is out of date. (Current version as of writing is 1.6.11) Because of this, we can search for known vulnerabilities. That is linked below. Also linked is the website revshells. This website will create a custom payload for your attack.</p>
+
+<p>https://github.com/fearsoff-org/CVE-2025-49113</p>
+
+<p>https://www.revshells.com/</p>
 
 <div style="page-break-after: always;"></div>
 
@@ -144,22 +153,28 @@ https://www.revshells.com/</p>
 <hr>
 <h2 id="user-enumeration">User Enumeration</h2>
 <hr>
-<p>![[CVE-2025-49113.png]]
-![[nc listener.png]]
-After running the payload we have a reverse shell as www-data. Because there is a login page, I wanted to see if there was a database storing user credentials. I navigated to the directory <code class="language-plaintext highlighter-rouge">/var/www/html/roundcube</code>. The config directory here is home to a few PHP files, one of which is interesting. We will be looking at config.inc.php.</p>
+<p><img src="/assets/images/htb_imgs/Outbound/CVE-2025-49113.png" alt="CVE"></p>
 
-<p>![[php-config.png]]
-There are two important pieces of information in this file. The first of which is highlighted in green, and shows the database’s username and password. Second, highlighted in pink, is an encryption key used for passwords.</p>
+<p><img src="/assets/images/htb_imgs/Outbound/nc-listener.png" alt="Netcat Listener"></p>
+
+<p>After running the payload we have a reverse shell as www-data. Because there is a login page, I wanted to see if there was a database storing user credentials. I navigated to the directory <code class="language-plaintext highlighter-rouge">/var/www/html/roundcube</code>. The config directory here is home to a few PHP files, one of which is interesting. We will be looking at config.inc.php.</p>
+
+<p><img src="/assets/images/htb_imgs/Outbound/php-config.png" alt="PHP Config"></p>
+
+<p>There are two important pieces of information in this file. The first of which is highlighted in green, and shows the database’s username and password. Second, highlighted in pink, is an encryption key used for passwords.</p>
 
 <p>With the credentials we now have, we should be able to query the database to try and find a vulnerable user.</p>
 
-<p>![[session-lookup-encoded.png]]
-When viewing the session table, we are met with a large base64 encoded string, lets decode it.</p>
+<p><img src="/assets/images/htb_imgs/Outbound/session-lookup-encoded.png" alt="Encoded Session Table"></p>
 
-<p>![[decoded-session.png]]
-In this decoded text blob there are two important pieces of information. We have a user called “jacob” and we have an encrypted password for jacob.</p>
+<p>When viewing the session table, we are met with a large base64 encoded string, lets decode it.</p>
+
+<p><img src="/assets/images/htb_imgs/Outbound/decoded-session.png" alt="Decoded Session"></p>
+
+<p>In this decoded text blob there are two important pieces of information. We have a user called “jacob” and we have an encrypted password for jacob.</p>
 
 <p>To decrypt this password we need some sort of script. I chose this one:</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">DES3</span>
 <span class="kn">import</span> <span class="n">base64</span>
 
@@ -176,37 +191,45 @@ In this decoded text blob there are two important pieces of information. We have
 
 <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Decrypted password:</span><span class="sh">"</span><span class="p">,</span> <span class="nf">unpad</span><span class="p">(</span><span class="n">decrypted_bytes</span><span class="p">).</span><span class="nf">decode</span><span class="p">())</span>
 </code></pre></div></div>
+
 <p>It utilizes the key we found earlier, along with some base64, to decrypt the password for jacob.</p>
 
-<p>![[jacob-passwd.png]]
-This password does not work for ssh as jacob, however we can switch users in the reverse shell.</p>
+<p><img src="/assets/images/htb_imgs/Outbound/jacob-passwd.png" alt="Jacob's Password"></p>
 
-<p>![[su-jacob.png]]
-Navigating to <code class="language-plaintext highlighter-rouge">/home/jacob/mail</code> we can see the mail inbox for jacob. If we read the only piece of mail in there, we are given another password for jacob.</p>
+<p>This password does not work for ssh as jacob, however we can switch users in the reverse shell.</p>
 
-<p>![[jacob-ssh-passwd.png]]
-This password lets us ssh as jacob and get the user flag.</p>
+<p><img src="/assets/images/htb_imgs/Outbound/su-jacob.png" alt="Switch Users Jacob"></p>
 
-<p>![[user-flag.png]]</p>
+<p>Navigating to <code class="language-plaintext highlighter-rouge">/home/jacob/mail</code> we can see the mail inbox for jacob. If we read the only piece of mail in there, we are given another password for jacob.</p>
+
+<p><img src="/assets/images/htb_imgs/Outbound/jacob-ssh-passwd.png" alt="Jacob SSH"></p>
+
+<p>This password lets us ssh as jacob and get the user flag.</p>
+
+<p><img src="/assets/images/htb_imgs/Outbound/user-flag.png" alt="User Flag"></p>
 <div style="page-break-after: always;"></div>
 
 <h2 id="privilege-escalation">Privilege Escalation</h2>
 <hr>
-<p>![[sudo-l.png]]
-Looking at what jacob can run as sudo, we see that he has access to the system data monitoring and recording tool Below.</p>
+
+<p><img src="/assets/images/htb_imgs/Outbound/sudo-l.png" alt="Sudo-l"></p>
+
+<p>Looking at what jacob can run as sudo, we see that he has access to the system data monitoring and recording tool Below.</p>
 
 <p>The version of Below running is vulnerable to CVE-2025-27591, which is linked here:
 https://github.com/BridgerAlderson/CVE-2025-27591-PoC</p>
 
-<p>![[python-server.png]]</p>
+<p><img src="/assets/images/htb_imgs/Outbound/python-server.png" alt="Python Server"></p>
 
-<p>![[wget.png]]
-After downloading the exploit on our local machine, we make a python server so that we can download the exploit onto the vulnerable machine using wget.</p>
+<p><img src="/assets/images/htb_imgs/Outbound/wget.png" alt="Wget"></p>
 
-<p>![[get-pwned-kid.png]]
-After giving the exploit execute privileges, we run the command. We now have root.</p>
+<p>After downloading the exploit on our local machine, we make a python server so that we can download the exploit onto the vulnerable machine using wget.</p>
 
-<p>![[root-flag.png]]</p>
+<p><img src="/assets/images/htb_imgs/Outbound/get-pwned-kid.png" alt="Exploit"></p>
+
+<p>After giving the exploit execute privileges, we run the command. We now have root.</p>
+
+<p><img src="/assets/images/htb_imgs/Outbound/root-flag.png" alt="Root Flag"></p>
 
     </div>
     

@@ -240,6 +240,32 @@ pre code {
   padding: 0;
 }
 
+/* Rouge / fenced code blocks */
+.highlighter-rouge,
+.highlight {
+  background: #020617;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.highlight pre,
+.highlight code,
+pre.highlight {
+  margin: 0;
+  background: transparent;
+  color: #e5e7eb;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+}
+
+/* Optional token colors */
+.highlight .k  { color: #7dd3fc; }
+.highlight .nf { color: #a5b4fc; }
+.highlight .s  { color: #bef264; }
+.highlight .n  { color: #e5e7eb; }
+
+
 /* Buttons */
 .btn {
   display: inline-flex;

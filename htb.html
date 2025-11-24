@@ -1,3 +1,216 @@
 ---
 layout: default
+title: HTB Write-Ups
 ---
+
+<!-- Header -->
+<header class="htb-header">
+  <div class="container">
+    <h1 class="htb-header__title">HTB Write-Ups</h1>
+  </div>
+</header>
+
+<!-- Main HTB Page Section -->
+<section class="htb-section">
+  <div class="container">
+
+    <!-- Search bar (top) -->
+    <div class="htb-search">
+      <input type="text" class="input htb-search__input" placeholder="Search write-ups by name or tag..." data-htb-search>
+    </div>
+
+    <!-- Filters -->
+    <div class="htb-filters htb-filters--stacked">
+      <!-- Difficulty filter row -->
+      <div class="htb-filter-group">
+        <button class="filter-btn active" data-difficulty-filter="all">All</button>
+        <button class="filter-btn" data-difficulty-filter="easy">Easy</button>
+        <button class="filter-btn" data-difficulty-filter="medium">Medium</button>
+        <button class="filter-btn" data-difficulty-filter="hard">Hard</button>
+        <button class="filter-btn" data-difficulty-filter="insane">Insane</button>
+      </div>
+      <!-- OS filter row -->
+      <div class="htb-filter-group">
+        <button class="filter-btn active" data-os-filter="all">All</button>
+        <button class="filter-btn" data-os-filter="linux">Linux</button>
+        <button class="filter-btn" data-os-filter="windows">Windows</button>
+      </div>
+    </div>
+
+    <!-- Card Grid -->
+    <div class="htb-card-grid">
+      {% assign htb_posts = site.posts | where: "categories", "htb" %}
+      {% if htb_posts.size > 0 %}
+        {% for post in htb_posts %}
+          <article class="card htb-card" 
+                   data-difficulty="{{ post.difficulty | downcase }}"
+                   data-os="{{ post.os | downcase }}"
+                   data-title="{{ post.title | downcase }}"
+                   data-tags="{{ post.tags | join: ' ' | downcase }}">
+            {% if post.image %}
+              <img src="{{ post.image }}" alt="{{ post.title }} box image" class="htb-card__image">
+            {% else %}
+              <!-- Empty: no image shown -->
+            {% endif %}
+            <div class="htb-card__meta">
+              <span class="badge badge--{{ post.difficulty | downcase }}">{{ post.difficulty }}</span>
+              <span class="badge">{{ post.os }}</span>
+            </div>
+            <h3 class="htb-card__title">{{ post.title }}</h3>
+            {% if post.tags %}
+              <div class="tags">
+                {% for tag in post.tags %}
+                  <span class="tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+            <a href="{{ post.url | relative_url }}" class="btn btn--primary btn--small mt-md">Read Write-Up</a>
+          </article>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <!-- No Results Message -->
+    <div class="no-results" style="display:none;">
+      <p>🦆 No write-ups match your search or filters.</p>
+    </div>
+
+    <!-- Coming Soon Message -->
+    {% if htb_posts.size == 0 %}
+    <div class="htb-coming-soon">
+      <h2>Coming Soon!</h2>
+      <p>HTB write-ups will be published here as machines are completed. Check back soon!</p>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- CSS (add to main.css, or as a <style> block in the page for prototyping) -->
+<style>
+.htb-header {
+  background: var(--bg-card);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.htb-header__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.htb-section {
+  background: var(--bg-input);
+  padding: 2.5rem 0;
+}
+
+.htb-search {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.htb-search__input {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.htb-filters--stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: start;
+}
+
+.htb-filter-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.htb-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.htb-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: border 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.htb-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+  transform: translateY(-4px);
+}
+
+.htb-card__image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  background: var(--bg-input);
+  display: block;
+}
+
+.htb-card__meta {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.htb-card__title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.tag {
+  background: rgba(var(--accent-rgb), 0.13);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+
+.no-results {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 2rem;
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+.htb-coming-soon {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .htb-header__title { font-size: 1.6rem; }
+  .htb-card-grid { grid-template-columns: 1fr; }
+  .htb-search__input { width: 100%; }
+}
+</style>
+

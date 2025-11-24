@@ -768,14 +768,17 @@ a:hover {
 
 .nav__mobile {
   display: none;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height var(--duration-normal) var(--ease-standard);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-card); 
+  border-top: 1px solid var(--border);
+  z-index: 9999; 
 }
 
 .nav__mobile.active {
-  max-height: 300px;
-  padding-top: var(--space-24);
+  display: block !important; 
 }
 
 .nav__mobile-menu {
@@ -784,7 +787,7 @@ a:hover {
 }
 
 .nav__mobile-link {
-  display: block;
+  display: none;
   padding: var(--space-16);
   color: var(--color-text-secondary);
   text-decoration: none;

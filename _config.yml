@@ -28,6 +28,24 @@ defaults:
     values:
       layout: "post"
 
+jekyll_spaceship:
+  processors:
+    - table-processor
+    - mathjax-processor
+    - plantuml-processor
+    - mermaid-processor
+    - polyfill-processor
+    - media-processor
+    - emoji-processor
+    - element-processor
+
+  media:
+    # Enable Obsidian/MD-style media handling
+    enabled: true
+    # Treat Obsidian ![[file.png]] as image embeds
+    image:
+      enabled: true
+
 # Exclude from processing
 exclude:
   - Gemfile

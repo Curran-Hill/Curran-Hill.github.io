@@ -6,6 +6,8 @@ url: "https://Curran-Hill.github.io"
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input: GFM
 theme: null
 plugins:
   - jekyll-feed

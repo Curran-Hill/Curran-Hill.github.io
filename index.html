@@ -110,12 +110,10 @@ title: "Home"
       {% if htb_posts.size > 0 %}
         {% for post in htb_posts %}
           <article class="card htb-preview-card">
-            <div class="htb-card__image-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-              </svg>
+            <div class="htb-card-image">
+              {% if post.thumbnail %}
+              <img class="htb-card-image" src="{{ post.thumbnail }}" alt="{{ post.title }} preview">
+              {% endif %}
             </div>
             <div class="card__meta">
               <span class="badge badge--{{ post.difficulty | downcase }}">{{ post.difficulty }}</span>
@@ -414,6 +412,14 @@ title: "Home"
 .htb-card__image-placeholder svg {
   width: 48px;
   height: 48px;
+}
+
+.htb-card-image {
+  width: 100%;
+  height: 160px;         /* adjust to taste */
+  object-fit: cover;     /* crop nicely */
+  border-radius: 8px;    /* match your card radius */
+  display: block;
 }
 
 .card__meta {

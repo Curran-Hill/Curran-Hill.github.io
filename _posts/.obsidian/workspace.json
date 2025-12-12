@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "b5e6571e52414f08",
+            "id": "7807cf5c7b81205c",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "![Exploit](/assets/images/htb_imgs/Outboud/get-pwned-kid.png)",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,8 +74,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -184,11 +183,13 @@
       "bases:Create new base": false
     }
   },
-  "active": "f7e13cc153b12f41",
+  "active": "7807cf5c7b81205c",
   "lastOpenFiles": [
-    "assets/images/htb_imgs/Outbound/nc.md",
+    "blog/2025-12-10-My-Homelab-Part-1-Ideas-and-Hardware.md",
+    "Templates/YYYY-MM-DD-HTB-title.md",
     "htb/2025-11-24-Outbound.md",
     "Templates/YYYY-MM-DD-blog-title.md",
+    "assets/images/htb_imgs/Outbound/nc.md",
     "assets/images/htb_imgs/Outbound",
     "assets/images/htb_imgs",
     "assets/images",
@@ -205,7 +206,6 @@
     "assets/htb/Outbound",
     "assets/htb",
     "assets",
-    "Templates/YYYY-MM-DD-HTB-title.md",
     "blog/2025-11-20-testing.md",
     "blog/test blog.md",
     "htb/test writeup.md",

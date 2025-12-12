@@ -6,4 +6,5 @@ categories: htb
 difficulty:
 os:
 tags:
+thumbnail:
 ---

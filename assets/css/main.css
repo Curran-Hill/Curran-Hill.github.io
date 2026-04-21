@@ -813,7 +813,7 @@ a:hover {
 }
 
 .nav__mobile-link {
-  display: none;
+  display: block;
   padding: var(--space-16);
   color: var(--color-text-secondary);
   text-decoration: none;
@@ -830,7 +830,7 @@ a:hover {
 @media (max-width: 768px) {
   .nav__menu { display: none; }
   .nav__toggle { display: flex; }
-  .nav__mobile { display: block; }
+  .nav__mobile { display: none; }
 }
 
 @media (max-width: 480px) {

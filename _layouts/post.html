@@ -175,13 +175,11 @@ layout: default
   top: var(--space-xl);
 }
 
-.toc-wrapper,
-.share-wrapper {
+.toc-wrapper {
   margin-bottom: var(--space-2xl);
 }
 
-.toc-title,
-.share-title {
+.toc-title {
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -218,38 +216,6 @@ layout: default
   color: var(--color-accent);
 }
 
-/* Share Buttons */
-.share-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.share-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  font-size: 0.875rem;
-  text-align: left;
-}
-
-.share-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
-.share-btn svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
 
 .post-content {  
   max-width: 800px;
@@ -389,38 +355,3 @@ layout: default
 }
 </style>
 
-<script>
-// Share Functions
-function shareOnTwitter() {
-  const url = window.location.href;
-  const text = document.querySelector('.post-title').textContent;
-  window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
-}
-
-function shareOnLinkedIn() {
-  const url = window.location.href;
-  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
-}
-
-function copyLink() {
-  const url = window.location.href;
-  navigator.clipboard.writeText(url).then(() => {
-    const btn = document.querySelector('.share-btn--copy');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = `
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
-      Copied!
-    `;
-    btn.style.color = 'var(--color-success)';
-    
-    setTimeout(() => {
-      btn.innerHTML = originalText;
-      btn.style.color = '';
-    }, 2000);
-  }).catch(err => {
-    console.error('Failed to copy:', err);
-  });
-}
-</script>

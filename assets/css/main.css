@@ -175,6 +175,11 @@
   /* Focus */
   --color-focus-ring: rgba(41, 182, 246, 0.3);
 
+  /* Background surface aliases */
+  --color-bg-secondary: var(--bg-card);
+  --color-bg-tertiary: var(--bg-input);
+  --color-text-primary: var(--text);
+
   /* Shorthand shadow + transition aliases */
   --shadow: var(--shadow-md);
   --transition-fast: var(--duration-fast) var(--ease-standard);
@@ -628,19 +633,6 @@ select.form-control {
   outline-offset: 2px;
 }
 
-@font-face {
-  font-family: 'FKGroteskNeue';
-  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
-    format('woff2');
-}
-
-/* END PERPLEXITY DESIGN SYSTEM */
-```css
-/* ================================
-   BRAND NEW CSS - Design System Applied
-   ================================
-   Modified to follow Perplexity Design System
-*/
 
 :root {
   /* HTB Difficulty Colors - maintaining original intent */
@@ -1389,4 +1381,3 @@ a:hover {
     min-height: calc(100vh - 150px);
   }
 }
-```

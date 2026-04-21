@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4444/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4444/" rel="alternate" type="text/html" /><updated>2026-04-21T02:00:45-05:00</updated><id>http://localhost:4444/feed.xml</id><title type="html">Curran Hill - Cybersecurity Portfolio</title><subtitle>Cybersecurity Portfolio</subtitle><entry><title type="html">Outbound</title><link href="http://localhost:4444/htb/2025/11/24/Outbound/" rel="alternate" type="text/html" title="Outbound" /><published>2025-11-24T00:00:00-06:00</published><updated>2025-11-24T00:00:00-06:00</updated><id>http://localhost:4444/htb/2025/11/24/Outbound</id><content type="html" xml:base="http://localhost:4444/htb/2025/11/24/Outbound/"><![CDATA[<p><img src="/assets/images/htb_imgs/HTB-banner.png" alt="HTB-banner" /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4444/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4444/" rel="alternate" type="text/html" /><updated>2026-04-21T18:26:35-05:00</updated><id>http://localhost:4444/feed.xml</id><title type="html">Curran Hill - Cybersecurity Portfolio</title><subtitle>Cybersecurity Portfolio</subtitle><entry><title type="html">Peel Carefully</title><link href="http://localhost:4444/ctf/2026/04/21/PeelCarefully/" rel="alternate" type="text/html" title="Peel Carefully" /><published>2026-04-21T00:00:00-05:00</published><updated>2026-04-21T00:00:00-05:00</updated><id>http://localhost:4444/ctf/2026/04/21/PeelCarefully</id><content type="html" xml:base="http://localhost:4444/ctf/2026/04/21/PeelCarefully/"><![CDATA[<p><img src="/assets/images/ctf_cit_2026/peel_carefully/challenge.png" alt="Challenge Card" /></p>
+
+<h1 id="description"><strong>Description</strong></h1>
+<p>Peel Carefully is a misc. problem from CTF@CIT 2026. Overall, it is a series of different encodings that you must systematically crack using different online tools.</p>
+
+<h1 id="walk-through"><strong>Walk Through</strong></h1>
+<p>After downloading the challenge.txt file and reading it, we can see that the file is full of dots and dashes.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/morse_code.png" alt="Challenge File Morse Code" /></p>
+
+<p>This looks exactly like Morse Code, so we need to find a tool to decode it.</p>
+
+<p>The online tool <a href="https://morsecode.world/international/translator.html">Morse Code Translator</a> works perfectly and outputs a series of letters. Specifically the letters A, C, G, and T.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/morse_to_dna.png" alt="Morse Code -&gt; DNA" /></p>
+
+<p>These letters represent a DNA sequence. The full sequence is shown below.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/dna.png" alt="Full DNA Sequence" /></p>
+
+<p>So what do we do with the DNA? My team and I explored a few different routes.</p>
+
+<p>The first thing we tried was putting the sequence into the online tool <a href="web.expasy.org/translate/">Expasy</a> to see if an amino acid sequence may have spit out a message. This got us nowhere.</p>
+
+<p>Next, after a bit of research, we found DNA -&gt; English and DNA -&gt; Binary translation tables on <a href="https://github.com/JohnHammond/ctf-katana">John Hammond’s ctf katana GitHub repository</a>. Both of these tables also lead nowhere.</p>
+
+<p>Finally, we found an online tool, <a href="https://www.cachesleuth.com/dnacode.html">Cache Sleuth</a>,1 that decodes DNA sequences into a-z, A-Z, and 0-9. Actually decoding the DNA using this tool gives us a hex byte looking sequence. These are not really hex bytes, but they are very close.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/dna_to_almostbytes.png" alt="Cache Sleuth Tool" /></p>
+
+<p>The full output of the almost hex bytes is shown below.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/almost_bytes.png" alt="Almost Bytes" /></p>
+
+<p>So, we need to make these almost bytes into actual bytes. Sounds like a job for everyone’s favorite cipher swiss army knife, <a href="https://gchq.github.io/CyberChef/">CyberChef</a>. After putting the almost bytes into CyberChef and preforming a rot13, we have actual hex bytes.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/hex_bytes.png" alt="Real Hex Bytes" /></p>
+
+<p>Furthermore, after preforming the From Hex operation, we get a Base64 string.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/from_hex.png" alt="From Hex Opperation" /></p>
+
+<p>Using the From Base64 operation gives us some very interesting characters.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/from_base64.png" alt="From Base64" /></p>
+
+<p>To figure out what to do next, we used the cipher identifier on <a href="https://www.dcode.fr/cipher-identifier">dcode</a>. This told us that we were likely working with a Base65536 encoding.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/cipher_id.png" alt="Cipher Identifier" /></p>
+
+<p>We can use dcode again to actually decode the Base65536 string and get the flag.
+<img src="/assets/images/ctf_cit_2026/peel_carefully/base65536_decode.png" alt="Base65536 Decoding" /></p>
+
+<h1 id="reflection"><strong>Reflection</strong></h1>
+<p>This was a very interesting challenge, and as the name and challenge description suggested there were many layers to peel back. I have never seen DNA used for encoding purposes before, so having to explore different avenues to find the correct path forward was a bit of a challenge. This was also my first time using the cipher identifier tool in dcode, and I will definitely continue to use it in the future.</p>]]></content><author><name></name></author><category term="ctf" /><category term="Cryptography" /><category term="Decoding" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Outbound</title><link href="http://localhost:4444/htb/2025/11/24/Outbound/" rel="alternate" type="text/html" title="Outbound" /><published>2025-11-24T00:00:00-06:00</published><updated>2025-11-24T00:00:00-06:00</updated><id>http://localhost:4444/htb/2025/11/24/Outbound</id><content type="html" xml:base="http://localhost:4444/htb/2025/11/24/Outbound/"><![CDATA[<p><img src="/assets/images/htb_imgs/HTB-banner.png" alt="HTB-banner" /></p>
 
 <p><img src="/assets/images/htb_imgs/Outbound/PWNED.png" alt="PWNED" /></p>
 <div style="page-break-after: always;"></div>
@@ -129,4 +174,4 @@ https://github.com/BridgerAlderson/CVE-2025-27591-PoC</p>
 
 <p>After giving the exploit execute privileges, we run the command. We now have root.</p>
 
-<p><img src="/assets/images/htb_imgs/Outbound/root-flag.png" alt="Root Flag" /></p>]]></content><author><name></name></author><category term="htb" /><category term="CVE" /><category term="SQL" /><category term="Cryptography" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">duck duck</title><link href="http://localhost:4444/ctf/1111/11/10/Test/" rel="alternate" type="text/html" title="duck duck" /><published>1111-11-10T23:58:48-05:50</published><updated>1111-11-10T23:58:48-05:50</updated><id>http://localhost:4444/ctf/1111/11/10/Test</id><content type="html" xml:base="http://localhost:4444/ctf/1111/11/10/Test/"><![CDATA[<p>lorem</p>]]></content><author><name></name></author><category term="ctf" /><category term="Cryptography" /><summary type="html"><![CDATA[lorem]]></summary></entry></feed>
+<p><img src="/assets/images/htb_imgs/Outbound/root-flag.png" alt="Root Flag" /></p>]]></content><author><name></name></author><category term="htb" /><category term="CVE" /><category term="SQL" /><category term="Cryptography" /><summary type="html"><![CDATA[]]></summary></entry></feed>

@@ -10,6 +10,41 @@ title: HTB Write-Ups
   </div>
 </header>
 
+<!-- HTB Stats Strip -->
+{% assign htb_posts = site.posts | where: "categories", "htb" %}
+{% if htb_posts.size > 0 %}
+{% assign easy_count   = htb_posts | where: "difficulty", "Easy"   | size %}
+{% assign medium_count = htb_posts | where: "difficulty", "Medium" | size %}
+{% assign hard_count   = htb_posts | where: "difficulty", "Hard"   | size %}
+{% assign insane_count = htb_posts | where: "difficulty", "Insane" | size %}
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-strip__inner">
+      <div class="stat-item">
+        <span class="stat-item__value">{{ htb_posts.size }}</span>
+        <span class="stat-item__label">Total</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-item__value stat-item__value--easy">{{ easy_count }}</span>
+        <span class="stat-item__label">Easy</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-item__value stat-item__value--medium">{{ medium_count }}</span>
+        <span class="stat-item__label">Medium</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-item__value stat-item__value--hard">{{ hard_count }}</span>
+        <span class="stat-item__label">Hard</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-item__value stat-item__value--insane">{{ insane_count }}</span>
+        <span class="stat-item__label">Insane</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 <!-- Main HTB Page Section -->
 <section class="htb-section">
   <div class="container">

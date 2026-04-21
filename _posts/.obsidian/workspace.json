@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ctf/YYYY-MM-DD-CTF-title 1.md",
+                "file": "ctf/1111-11-11-Test.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "YYYY-MM-DD-CTF-title 1"
+              "title": "1111-11-11-Test"
             }
           }
         ]
@@ -183,16 +183,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "ba19d6e3a2cd89aa",
+  "active": "7807cf5c7b81205c",
   "lastOpenFiles": [
-    "Templates/YYYY-MM-DD-CTF-title.md",
-    "ctf/YYYY-MM-DD-CTF-title 1.md",
     "htb/2025-11-24-Outbound.md",
+    "ctf/1111-11-11-Test.md",
+    "ctf/1111-11-11-Test.md",
+    "Templates/YYYY-MM-DD-blog-title.md",
+    "Templates/YYYY-MM-DD-HTB-title.md",
+    "Templates/YYYY-MM-DD-CTF-title.md",
+    "ctf/1111-11-11-test.md",
     "ctf",
     "Templates/YYYY-MM-DD-CTF-title.md.tmp.32516.1776751525126",
     "blog/2025-12-10-My-Homelab-Part-1-Ideas-and-Hardware.md",
-    "Templates/YYYY-MM-DD-HTB-title.md",
-    "Templates/YYYY-MM-DD-blog-title.md",
     "assets/images/htb_imgs/Outbound/nc.md",
     "assets/images/htb_imgs/Outbound",
     "assets/images/htb_imgs",

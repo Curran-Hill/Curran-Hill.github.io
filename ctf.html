@@ -10,6 +10,56 @@ title: CTF Write-Ups
   </div>
 </header>
 
+<!-- CTF Stats Strip -->
+{% assign ctf_posts_all = site.posts | where: "categories", "ctf" %}
+{% if ctf_posts_all.size > 0 %}
+{% assign web_count      = ctf_posts_all | where: "ctf_category", "Web"      | size %}
+{% assign pwn_count      = ctf_posts_all | where: "ctf_category", "Pwn"      | size %}
+{% assign crypto_count   = ctf_posts_all | where: "ctf_category", "Crypto"   | size %}
+{% assign rev_count      = ctf_posts_all | where: "ctf_category", "Rev"      | size %}
+{% assign forensics_count= ctf_posts_all | where: "ctf_category", "Forensics"| size %}
+{% assign osint_count    = ctf_posts_all | where: "ctf_category", "OSINT"    | size %}
+{% assign misc_count     = ctf_posts_all | where: "ctf_category", "Misc"     | size %}
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-strip__inner">
+      <div class="stat-item">
+        <span class="stat-item__value">{{ ctf_posts_all.size }}</span>
+        <span class="stat-item__label">Total</span>
+      </div>
+      {% if web_count > 0 %}<div class="stat-item">
+        <span class="stat-item__value">{{ web_count }}</span>
+        <span class="stat-item__label">Web</span>
+      </div>{% endif %}
+      {% if pwn_count > 0 %}<div class="stat-item">
+        <span class="stat-item__value">{{ pwn_count }}</span>
+        <span class="stat-item__label">Pwn</span>
+      </div>{% endif %}
+      {% if crypto_count > 0 %}<div class="stat-item">
+        <span class="stat-item__value">{{ crypto_count }}</span>
+        <span class="stat-item__label">Crypto</span>
+      </div>{% endif %}
+      {% if rev_count > 0 %}<div class="stat-item">
+        <span class="stat-item__value">{{ rev_count }}</span>
+        <span class="stat-item__label">Rev</span>
+      </div>{% endif %}
+      {% if forensics_count > 0 %}<div class="stat-item">
+        <span class="stat-item__value">{{ forensics_count }}</span>
+        <span class="stat-item__label">Forensics</span>
+      </div>{% endif %}
+      {% if osint_count > 0 %}<div class="stat-item">
+        <span class="stat-item__value">{{ osint_count }}</span>
+        <span class="stat-item__label">OSINT</span>
+      </div>{% endif %}
+      {% if misc_count > 0 %}<div class="stat-item">
+        <span class="stat-item__value">{{ misc_count }}</span>
+        <span class="stat-item__label">Misc</span>
+      </div>{% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
 <!-- Main CTF Page Section -->
 <section class="ctf-section">
   <div class="container">

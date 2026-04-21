@@ -41,9 +41,7 @@ layout: default
           <span class="badge">{{ page.os }}</span>
         {% endif %}
         
-        {% if page.category %}
-          <span class="tag tag--category">{{ page.category }}</span>
-        {% endif %}
+
       </div>
 
       {% if page.tags %}
@@ -281,8 +279,7 @@ layout: default
 
 /* Post Navigation */
 .post-navigation {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: var(--space-xl);
   margin-top: var(--space-3xl);
   padding-top: var(--space-2xl);
@@ -292,6 +289,7 @@ layout: default
 .post-nav-link {
   display: flex;
   flex-direction: column;
+  flex: 0 1 48%;
   padding: var(--space-lg);
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);

@@ -2,7 +2,40 @@
 // MAIN.JS - UPDATED
 // ================================
 
-// 1. MOBILE NAVIGATION
+// 1. LIGHTBOX
+document.addEventListener('DOMContentLoaded', () => {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  if (lightbox) {
+    document.querySelectorAll('[data-lightbox]').forEach(card => {
+      card.addEventListener('click', () => {
+        const img = card.querySelector('img');
+        if (!img) return;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  }
+});
+
+// 2. MOBILE NAVIGATION
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('.nav__toggle');
   const menu = document.querySelector('.nav__mobile');

@@ -52,12 +52,18 @@
 </section>
 
 <!-- Main Content -->
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightbox-close" aria-label="Close">×</button>
+  <img class="lightbox__img" id="lightbox-img" src="" alt="">
+</div>
+
 <!-- About Section -->
 <section class="about">
   <div class="container">
     <h2>About Me</h2>
     <p class="about__bio">
-      I am a cybersecurity student at the University of Texas at San Antonio, currently in my freshman year. Check out my blog posts to see things I am learning or working on. Checkout my HTB writeups to see what boxes I've conquered. To see me on Github, LinkedIn, or Hack The Box you can use the links in the "Get In Touch" section. My professional email is also linked there.
+      I am a cybersecurity student at the University of Texas at San Antonio, currently in my freshman year. Check out my blog posts to see things I am learning or working on. Checkout my HTB writeups to see what boxes I've conquered. Check out my CTF writeups to seewhat challenges I have done. To see me on Github, LinkedIn, or Hack The Box you can use the links in the "Get In Touch" section. My professional email is also linked there.
     </p>
   </div>
 </section>
@@ -99,20 +105,24 @@
     <h2>Awards and Accolades</h2>
     <div class="awards-grid">
       
-      <div class="award-card">
+      <div class="award-card award-card--clickable" data-lightbox>
         <img src="assets/images/HTM-SW16-cert.png" alt="Hack The Madness Sweet 16 Certificate" class="award-card__badge">
-        <h3 class="award-card__title">Hack The Madness Sweet 16</h3>
-        <p class="award-card__role">Participant</p>
-        <p class="award-card__info">Competed in a March Madness style tournament, making it to the sweet 16</p>
-        <p class="award-card__date">March 2026</p>
-      </div>  
+        <div class="award-card__content">
+          <h3 class="award-card__title">Hack The Madness Sweet 16</h3>
+          <p class="award-card__role">Participant</p>
+          <p class="award-card__info">Competed in a March Madness style tournament, making it to the sweet 16</p>
+          <p class="award-card__date">March 2026</p>
+        </div>
+      </div>
 
-      <div class="award-card">
+      <div class="award-card award-card--clickable" data-lightbox>
         <img src="assets/images/UND-2025-Finalist.png" alt="UND CyberHawks Finalist" class="award-card__badge">
-        <h3 class="award-card__title">UND CyberHawks Finalist</h3>
-        <p class="award-card__role">Team Captain</p>
-        <p class="award-card__info">Competed against 90+ teams from all over the U.S. and qualified for finals</p>
-        <p class="award-card__date">2025</p>
+        <div class="award-card__content">
+          <h3 class="award-card__title">UND CyberHawks Finalist</h3>
+          <p class="award-card__role">Team Captain</p>
+          <p class="award-card__info">Competed against 90+ teams from all over the U.S. and qualified for finals</p>
+          <p class="award-card__date">2025</p>
+        </div>
       </div>
      
     </div>
@@ -189,6 +199,45 @@
               </div>
             
             <a href="/htb/2025/11/24/Outbound/" class="btn btn--primary btn--small mt-md">Read Write-up</a>
+          </article>
+        
+      
+    </div>
+  </div>
+</section>
+
+<!-- CTF Preview Section -->
+<section class="preview preview--ctf">
+  <div class="container">
+    <div class="preview__header">
+      <h2>Recent CTF Write-ups</h2>
+      <a href="/ctf.html" class="btn btn--secondary btn--small">View All</a>
+    </div>
+
+    <div class="blog-tiles">
+      
+      
+        
+          <article class="blog-tile">
+            <div class="card__meta">
+              
+                <span class="badge badge--ctf-category">OSINT</span>
+              
+              
+                <span class="badge">duky</span>
+              
+            </div>
+            <h3 class="blog-tile__title">
+              <a href="/ctf/1111/11/10/Test/">duck duck</a>
+            </h3>
+            
+              <div class="tags">
+                
+                  <span class="tag">Cryptography</span>
+                
+              </div>
+            
+            <a href="/ctf/1111/11/10/Test/" class="btn btn--primary btn--small mt-md">Read Write-Up</a>
           </article>
         
       
@@ -339,6 +388,50 @@
   flex-shrink: 0;
 }
 
+.award-card--clickable {
+  cursor: zoom-in;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox__img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+
+.lightbox__close:hover {
+  opacity: 1;
+}
+
 .award-card__content {
   flex: 1;
   text-align: left;
@@ -429,6 +522,10 @@
 }
 
 .preview--htb {
+  background-color: var(--color-surface);
+}
+
+.preview--ctf {
   background-color: var(--color-surface);
 }
 

@@ -50,6 +50,38 @@
   </div>
 </header>
 
+<!-- CTF Stats Strip -->
+
+
+
+
+
+
+
+
+
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-strip__inner">
+      <div class="stat-item">
+        <span class="stat-item__value">1</span>
+        <span class="stat-item__label">Total</span>
+      </div>
+      
+      
+      
+      
+      
+      <div class="stat-item">
+        <span class="stat-item__value">1</span>
+        <span class="stat-item__label">OSINT</span>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
 <!-- Main CTF Page Section -->
 <section class="ctf-section">
   <div class="container">
@@ -76,10 +108,40 @@
       
       
       
+      <div class="ctf-filter-group">
+        <button class="filter-btn active" data-ctf-event-filter="all">All Events</button>
+        
+          <button class="filter-btn" data-ctf-event-filter="duky">duky</button>
+        
+      </div>
+      
     </div>
 
     <!-- Card Grid -->
     <div class="ctf-card-grid">
+      
+        
+          <article class="card ctf-card" data-ctf-category="osint" data-ctf-event="duky" data-title="duck duck" data-tags="cryptography">
+            <div class="ctf-card__meta">
+              
+                <span class="badge badge--ctf-category">OSINT</span>
+              
+              
+                <span class="badge">duky</span>
+              
+            </div>
+            <h3 class="ctf-card__title">duck duck</h3>
+            <time class="ctf-card__date">November 10, 1111</time>
+            
+              <div class="tags">
+                
+                  <span class="tag">Cryptography</span>
+                
+              </div>
+            
+            <a href="/ctf/1111/11/10/Test/" class="btn btn--primary btn--small mt-md">Read Write-Up</a>
+          </article>
+        
       
     </div>
 
@@ -89,11 +151,6 @@
     </div>
 
     <!-- Coming Soon Message -->
-    
-    <div class="ctf-coming-soon">
-      <h2>Coming Soon!</h2>
-      <p>CTF write-ups will be published here as challenges are completed. Check back soon!</p>
-    </div>
     
 
   </div>

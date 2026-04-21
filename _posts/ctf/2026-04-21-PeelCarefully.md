@@ -54,4 +54,4 @@ We can use dcode again to actually decode the Base65536 string and get the flag.
 ![Base65536 Decoding](/assets/images/ctf_cit_2026/peel_carefully/base65536_decode.png)
 
 # **Reflection**
-This was a very interesting challenge, and as the name and challenge description suggested there were many layers to peel back. I have never seen DNA used for encoding purposes before, so having to explore different avenues to find the correct path forward was a bit of a challenge. This was also my first time using the cipher identifier tool in dcode, and I will definitely continue to use it in the future.
+This was a very interesting challenge, and as the name and challenge description suggested there were many layers to peel back. I have never seen DNA used for flag encoding purposes before, so having to explore different avenues to find the correct path forward was a bit of a challenge. This was also my first time using the cipher identifier tool in dcode, and I will definitely continue to use it in the future.

@@ -145,6 +145,48 @@
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1280px;
+
+  /* Secondary surface colors */
+  --color-secondary: var(--bg-input);
+  --color-secondary-hover: #383838;
+  --color-secondary-active: #404040;
+
+  /* Border colors */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-card-border-inner: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.1);
+
+  /* Button text */
+  --color-btn-primary-text: var(--bg-dark);
+  --color-primary-active: var(--color-teal-700);
+
+  /* Text */
+  --color-text-secondary: var(--text-dim);
+  --color-text-muted: var(--text-subtle);
+  --color-accent: var(--accent);
+
+  /* Status colors */
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: var(--color-teal-500);
+
+  /* Focus */
+  --color-focus-ring: rgba(41, 182, 246, 0.3);
+
+  /* Shorthand shadow + transition aliases */
+  --shadow: var(--shadow-md);
+  --transition-fast: var(--duration-fast) var(--ease-standard);
+
+  /* Semantic spacing aliases (used in post layout) */
+  --space-xs: var(--space-4);
+  --space-sm: var(--space-8);
+  --space-md: var(--space-16);
+  --space-lg: var(--space-20);
+  --space-xl: var(--space-24);
+  --space-2xl: var(--space-32);
+  --space-3xl: 48px;
 }
 
 /* Base styles */

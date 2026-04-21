@@ -6,6 +6,7 @@ Posts live in `_posts/`. Use Obsidian with the vault set to `_posts/`.
 
 Templates are in `_posts/Templates/`:
 - `YYYY-MM-DD-HTB-title.md` — for HTB write-ups
+- `YYYY-MM-DD-CTF-title.md` — for CTF write-ups
 - `YYYY-MM-DD-blog-title.md` — for blog posts
 
 ### HTB Post Frontmatter
@@ -23,6 +24,23 @@ tags:
 thumbnail: assets/images/htb_imgs/BoxName/thumbnail.png
 ---
 ```
+
+### CTF Post Frontmatter
+```yaml
+---
+layout: post
+title: Challenge Name
+date: YYYY-MM-DD
+categories: ctf
+event: EventName
+ctf_category: Web | Pwn | Crypto | Rev | Forensics | OSINT | Misc
+tags:
+  - Tag1
+  - Tag2
+---
+```
+
+File goes in `_posts/ctf/`.
 
 ### Blog Post Frontmatter
 ```yaml

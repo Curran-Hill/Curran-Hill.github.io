@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTB Write-Ups | DuckP0nd</title>
+  <title>CTF Write-Ups | DuckP0nd</title>
   <meta name="description" content="Cybersecurity Portfolio">
   <link rel="stylesheet" href="/assets/css/main.css">
 </head>
@@ -17,8 +17,8 @@
       <!-- Desktop Navigation -->
       <ul class="nav__menu">
         <li><a href="/" class="nav__link">Home</a></li>
-        <li><a href="/htb.html" class="nav__link nav__link--active">HTB Write-ups</a></li>
-        <li><a href="/ctf.html" class="nav__link">CTF Write-ups</a></li>
+        <li><a href="/htb.html" class="nav__link">HTB Write-ups</a></li>
+        <li><a href="/ctf.html" class="nav__link nav__link--active">CTF Write-ups</a></li>
         <li><a href="/blog.html" class="nav__link">Blog</a></li>
       </ul>
 
@@ -44,67 +44,42 @@
   <!-- Main Content -->
   <main class="main">
     <!-- Header -->
-<header class="htb-header">
+<header class="ctf-header">
   <div class="container">
-    <h1 class="htb-header__title">HTB Write-Ups</h1>
+    <h1 class="ctf-header__title">CTF Write-Ups</h1>
   </div>
 </header>
 
-<!-- Main HTB Page Section -->
-<section class="htb-section">
+<!-- Main CTF Page Section -->
+<section class="ctf-section">
   <div class="container">
 
     <!-- Search bar (top) -->
-    <div class="htb-search">
-      <input type="text" class="input htb-search__input" placeholder="Search write-ups by name or tag..." data-htb-search>
+    <div class="ctf-search">
+      <input type="text" class="input ctf-search__input" placeholder="Search write-ups by name or tag..." data-ctf-search>
     </div>
 
     <!-- Filters -->
-    <div class="htb-filters htb-filters--stacked">
-      <!-- Difficulty filter row -->
-      <div class="htb-filter-group">
-        <button class="filter-btn active" data-difficulty-filter="all">All</button>
-        <button class="filter-btn" data-difficulty-filter="easy">Easy</button>
-        <button class="filter-btn" data-difficulty-filter="medium">Medium</button>
-        <button class="filter-btn" data-difficulty-filter="hard">Hard</button>
-        <button class="filter-btn" data-difficulty-filter="insane">Insane</button>
+    <div class="ctf-filters ctf-filters--stacked">
+      <!-- Category filter row -->
+      <div class="ctf-filter-group">
+        <button class="filter-btn active" data-ctf-category-filter="all">All</button>
+        <button class="filter-btn" data-ctf-category-filter="web">Web</button>
+        <button class="filter-btn" data-ctf-category-filter="pwn">Pwn</button>
+        <button class="filter-btn" data-ctf-category-filter="crypto">Crypto</button>
+        <button class="filter-btn" data-ctf-category-filter="rev">Rev</button>
+        <button class="filter-btn" data-ctf-category-filter="forensics">Forensics</button>
+        <button class="filter-btn" data-ctf-category-filter="osint">OSINT</button>
+        <button class="filter-btn" data-ctf-category-filter="misc">Misc</button>
       </div>
-      <!-- OS filter row -->
-      <div class="htb-filter-group">
-        <button class="filter-btn active" data-os-filter="all">All</button>
-        <button class="filter-btn" data-os-filter="linux">Linux</button>
-        <button class="filter-btn" data-os-filter="windows">Windows</button>
-      </div>
+      <!-- Event filter row (dynamic) -->
+      
+      
+      
     </div>
 
     <!-- Card Grid -->
-    <div class="htb-card-grid">
-      
-      
-        
-          <article class="card htb-card" data-difficulty="easy" data-os="linux" data-title="outbound" data-tags="cve sql cryptography">
-            
-              <!-- Empty: no image shown -->
-            
-            <div class="htb-card__meta">
-              <span class="badge badge--easy">Easy</span>
-              <span class="badge">Linux</span>
-            </div>
-            <h3 class="htb-card__title">Outbound</h3>
-            
-              <div class="tags">
-                
-                  <span class="tag">CVE</span>
-                
-                  <span class="tag">SQL</span>
-                
-                  <span class="tag">Cryptography</span>
-                
-              </div>
-            
-            <a href="/htb/2025/11/24/Outbound/" class="btn btn--primary btn--small mt-md">Read Write-Up</a>
-          </article>
-        
+    <div class="ctf-card-grid">
       
     </div>
 
@@ -115,41 +90,45 @@
 
     <!-- Coming Soon Message -->
     
+    <div class="ctf-coming-soon">
+      <h2>Coming Soon!</h2>
+      <p>CTF write-ups will be published here as challenges are completed. Check back soon!</p>
+    </div>
+    
 
   </div>
 </section>
 
-<!-- CSS (add to main.css, or as a <style> block in the page for prototyping) -->
 <style>
-.htb-header {
+.ctf-header {
   background: var(--bg-card);
   padding: 2rem 0;
   text-align: center;
 }
 
-.htb-header__title {
+.ctf-header__title {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--accent);
   letter-spacing: 1px;
 }
 
-.htb-section {
+.ctf-section {
   background: var(--bg-input);
   padding: 2.5rem 0;
 }
 
-.htb-search {
+.ctf-search {
   margin-bottom: 2rem;
   text-align: center;
 }
 
-.htb-search__input {
+.ctf-search__input {
   max-width: 400px;
   margin: 0 auto;
 }
 
-.htb-filters--stacked {
+.ctf-filters--stacked {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -157,18 +136,19 @@
   align-items: start;
 }
 
-.htb-filter-group {
+.ctf-filter-group {
   display: flex;
   gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.htb-card-grid {
+.ctf-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-.htb-card {
+.ctf-card {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
@@ -179,60 +159,39 @@
   transition: border 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
-.htb-card:hover {
+.ctf-card:hover {
   border-color: var(--accent);
   box-shadow: var(--shadow);
   transform: translateY(-4px);
 }
 
-.htb-card__image {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  border-radius: var(--radius-md);
-  margin-bottom: 1rem;
-  background: var(--bg-input);
-  display: block;
-}
-
-.htb-card__meta {
+.ctf-card__meta {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.htb-card__title {
+.ctf-card__title {
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.ctf-card__date {
+  font-size: 0.8rem;
+  color: var(--text-dim);
   margin-bottom: 0.5rem;
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.tag {
+.badge--ctf-category {
   background: rgba(var(--accent-rgb), 0.13);
   color: var(--accent);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  padding: 0.2rem 0.5rem;
   border: 1px solid rgba(var(--accent-rgb), 0.25);
 }
 
-.no-results {
-  text-align: center;
-  color: var(--text-dim);
-  padding: 2rem;
-  font-style: italic;
-  margin-top: 2rem;
-}
-
-.htb-coming-soon {
+.ctf-coming-soon {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   text-align: center;
@@ -241,12 +200,11 @@
 }
 
 @media (max-width: 768px) {
-  .htb-header__title { font-size: 1.6rem; }
-  .htb-card-grid { grid-template-columns: 1fr; }
-  .htb-search__input { width: 100%; }
+  .ctf-header__title { font-size: 1.6rem; }
+  .ctf-card-grid { grid-template-columns: 1fr; }
+  .ctf-search__input { width: 100%; }
 }
 </style>
-
 
   </main>
 

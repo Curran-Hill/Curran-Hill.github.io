@@ -14,6 +14,8 @@ layout: default
         <li class="breadcrumb__item">
           {% if page.categories contains 'htb' %}
             <a href="{{ '/htb.html' | relative_url }}" class="breadcrumb__link">HTB Write-ups</a>
+          {% elsif page.categories contains 'ctf' %}
+            <a href="{{ '/ctf.html' | relative_url }}" class="breadcrumb__link">CTF Write-ups</a>
           {% elsif page.categories contains 'blog' %}
             <a href="{{ '/blog.html' | relative_url }}" class="breadcrumb__link">Blog</a>
           {% endif %}

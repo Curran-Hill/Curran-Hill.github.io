@@ -30,69 +30,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 2. ROBUST HTB FILTERS
 function initHTBFilters() {
-  // Select all buttons
   const diffButtons = document.querySelectorAll('[data-difficulty-filter]');
   const osButtons = document.querySelectorAll('[data-os-filter]');
+  const searchInput = document.querySelector('[data-htb-search]');
   const cards = document.querySelectorAll('.htb-card');
-  
-  console.log(`Found ${diffButtons.length} difficulty buttons`);
-  console.log(`Found ${osButtons.length} OS buttons`);
-  console.log(`Found ${cards.length} cards`);
 
   let currentDiff = 'all';
   let currentOS = 'all';
+  let currentSearch = '';
 
-  // Helper to update UI
   function updateActiveButton(buttons, clickedBtn) {
     buttons.forEach(btn => btn.classList.remove('active'));
     clickedBtn.classList.add('active');
   }
 
-  // Helper to filter cards
   function filterGrid() {
     let visibleCount = 0;
     cards.forEach(card => {
       const cardDiff = (card.dataset.difficulty || '').toLowerCase();
       const cardOS = (card.dataset.os || '').toLowerCase();
-      
-      // Logic: Match if filter is 'all' OR matches card attribute
+      const cardTitle = (card.dataset.title || '').toLowerCase();
+      const cardTags = (card.dataset.tags || '').toLowerCase();
+
       const matchDiff = currentDiff === 'all' || cardDiff === currentDiff;
       const matchOS = currentOS === 'all' || cardOS === currentOS;
+      const matchSearch = currentSearch === '' ||
+        cardTitle.includes(currentSearch) ||
+        cardTags.includes(currentSearch) ||
+        cardOS.includes(currentSearch);
 
-      if (matchDiff && matchOS) {
-        card.style.display = 'flex'; // or 'block' depending on layout
+      if (matchDiff && matchOS && matchSearch) {
+        card.style.display = 'flex';
         visibleCount++;
       } else {
         card.style.display = 'none';
       }
     });
-    
-    // Handle "No Results" message
+
     const noResults = document.querySelector('.no-results');
     if (noResults) {
       noResults.style.display = visibleCount === 0 ? 'block' : 'none';
     }
   }
 
-  // Attach Events - Difficulty
   diffButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      console.log('Difficulty clicked:', btn.dataset.difficultyFilter);
+    btn.addEventListener('click', () => {
       currentDiff = btn.dataset.difficultyFilter.toLowerCase();
       updateActiveButton(diffButtons, btn);
       filterGrid();
     });
   });
 
-  // Attach Events - OS
   osButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      console.log('OS clicked:', btn.dataset.osFilter);
+    btn.addEventListener('click', () => {
       currentOS = btn.dataset.osFilter.toLowerCase();
       updateActiveButton(osButtons, btn);
       filterGrid();
     });
   });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      currentSearch = searchInput.value.trim().toLowerCase();
+      filterGrid();
+    });
+  }
 }
 
 // Run immediately if DOM is ready, otherwise wait
@@ -102,5 +104,80 @@ if (document.readyState === 'loading') {
   initHTBFilters();
 }
 
-// 3. (Optional) Copy Buttons & TOC code here...
+// 3. CTF FILTERS
+function initCTFFilters() {
+  const categoryButtons = document.querySelectorAll('[data-ctf-category-filter]');
+  const eventButtons = document.querySelectorAll('[data-ctf-event-filter]');
+  const searchInput = document.querySelector('[data-ctf-search]');
+  const cards = document.querySelectorAll('.ctf-card');
+
+  let currentCategory = 'all';
+  let currentEvent = 'all';
+  let currentSearch = '';
+
+  function updateActiveButton(buttons, clickedBtn) {
+    buttons.forEach(btn => btn.classList.remove('active'));
+    clickedBtn.classList.add('active');
+  }
+
+  function filterGrid() {
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const cardCategory = (card.dataset.ctfCategory || '').toLowerCase();
+      const cardEvent = (card.dataset.ctfEvent || '').toLowerCase();
+      const cardTitle = (card.dataset.title || '').toLowerCase();
+      const cardTags = (card.dataset.tags || '').toLowerCase();
+
+      const matchCategory = currentCategory === 'all' || cardCategory === currentCategory;
+      const matchEvent = currentEvent === 'all' || cardEvent === currentEvent;
+      const matchSearch = currentSearch === '' ||
+        cardTitle.includes(currentSearch) ||
+        cardTags.includes(currentSearch) ||
+        cardCategory.includes(currentSearch) ||
+        cardEvent.includes(currentSearch);
+
+      if (matchCategory && matchEvent && matchSearch) {
+        card.style.display = 'flex';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    const noResults = document.querySelector('.no-results');
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  }
+
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentCategory = btn.dataset.ctfCategoryFilter.toLowerCase();
+      updateActiveButton(categoryButtons, btn);
+      filterGrid();
+    });
+  });
+
+  eventButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentEvent = btn.dataset.ctfEventFilter.toLowerCase();
+      updateActiveButton(eventButtons, btn);
+      filterGrid();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      currentSearch = searchInput.value.trim().toLowerCase();
+      filterGrid();
+    });
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCTFFilters);
+} else {
+  initCTFFilters();
+}
+
 

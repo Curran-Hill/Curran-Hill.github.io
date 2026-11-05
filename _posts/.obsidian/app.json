@@ -1,1 +1,5 @@
-{}
+{
+  "attachmentFolderPath": "Attachments",
+  "newLinkFormat": "relative",
+  "useMarkdownLinks": true
+}

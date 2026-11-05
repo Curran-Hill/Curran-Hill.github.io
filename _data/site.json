@@ -1,0 +1,96 @@
+{
+  "name": "DuckP0nd",
+  "owner": "Curran Hill",
+  "homeSubtitle": "Cybersecurity field notes",
+  "directorySubtitle": "Cybersecurity student at UTSA",
+  "about": {
+    "title": "The duck behind the pond",
+    "subtitle": "Curran Hill · Cybersecurity student at the University of Texas at San Antonio.",
+    "body": "I’m Curran, a cybersecurity student at UTSA. This pond is where I document what I’m learning and working on, from [Hack The Box machines](/htb.html) to [CTF challenges](/ctf.html) and [notes along the way](/blog.html).\n\nI enjoy following a thread, figuring out how things work, and writing down the path so someone else can follow it too.",
+    "certifications": [
+      {
+        "name": "CompTIA Security+",
+        "completed": "May 15, 2026",
+        "expires": "May 15, 2029",
+        "image": "/assets/images/comptia-security-ce-certification.png",
+        "alt": "CompTIA Security+ certification badge",
+        "width": 90,
+        "height": 90
+      }
+    ],
+    "awards": [
+      {
+        "title": "CTF@CIT Top 5",
+        "role": "Participant",
+        "date": "April 2026",
+        "body": "Competed against 752 international teams and placed 5th worldwide."
+      },
+      {
+        "title": "UND CyberHawks Finalist",
+        "role": "Participant",
+        "date": "September 2026",
+        "body": "Competed against 216 teams across the U.S. in the qualifying round, placing 14th.",
+        "image": "/assets/images/UND-2026-Finalist.png",
+        "alt": "UND CyberHawks 2026 finalist certificate",
+        "width": 409,
+        "height": 409
+      },
+      {
+        "title": "Hack The Madness Sweet 16",
+        "role": "Participant",
+        "date": "March 2026",
+        "body": "Competed in a March Madness style tournament, making it to the Sweet 16.",
+        "image": "/assets/images/HTM-SW16-cert.png",
+        "alt": "Hack The Madness Sweet 16 certificate",
+        "width": 2339,
+        "height": 1654
+      },
+      {
+        "title": "UND CyberHawks Finalist",
+        "role": "Team Captain",
+        "date": "2025",
+        "body": "Competed against 90+ teams from all over the U.S. and qualified for finals.",
+        "image": "/assets/images/UND-2025-Finalist.png",
+        "alt": "UND CyberHawks 2025 finalist certificate",
+        "width": 409,
+        "height": 409
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact Curran",
+    "subtitle": "Questions, ideas, or a good rabbit hole? You can find me here.",
+    "note": "Email is the best place to start a conversation. Thanks for stopping by the pond.",
+    "links": [
+      {
+        "name": "Email",
+        "label": "curran.hill@protonmail.com",
+        "href": "mailto:curran.hill@protonmail.com",
+        "icon": "mail"
+      },
+      {
+        "name": "GitHub",
+        "label": "Curran-Hill",
+        "href": "https://github.com/Curran-Hill",
+        "icon": "code"
+      },
+      {
+        "name": "LinkedIn",
+        "label": "Curran Hill",
+        "href": "https://linkedin.com/in/curran-hill",
+        "icon": "profile"
+      },
+      {
+        "name": "Hack The Box",
+        "label": "DuckP0nd’s HTB profile",
+        "href": "https://app.hackthebox.com/users/2121810",
+        "icon": "box"
+      }
+    ]
+  },
+  "pond": {
+    "quackVolume": 0.3,
+    "quackIntervalMin": 35,
+    "quackIntervalMax": 60
+  }
+}

@@ -1,0 +1,20 @@
+---
+import Journal from '../layouts/Journal.astro';
+import Icon from '../components/Icon.astro';
+import { getPosts, dateLabel, type Post } from '../lib/content';
+export async function getStaticPaths() { return (await getPosts(import.meta.env.DEV)).map(post=>({params:{post:post.url.replace(/^\//,'').replace(/\/$/,'')},props:{post}})); }
+interface Props { post: Post }
+const {post} = Astro.props;
+const all = await getPosts(import.meta.env.DEV);
+const peers=all.filter(p=>p.category===post.category),index=peers.findIndex(p=>p.url===post.url),next=peers[index+1];
+const categoryLabel={htb:'HTB write-ups',ctf:'CTF write-ups',blog:'Blog'}[post.category];
+---
+<Journal title={post.title} subtitle={post.excerpt} active={post.category} article>
+  <article>
+    <nav aria-label="Breadcrumb" class="post-breadcrumb"><a href={`/${post.category}.html`} data-archive-return>{categoryLabel}</a> <span aria-hidden="true">/</span> {post.title}</nav>
+    <header class="post-header"><p class="eyebrow">{post.category==='blog'?'Blog':post.category.toUpperCase()} / Field notes</p><h1>{post.title}</h1><div class="post-card-meta"><time datetime={post.date}>{dateLabel(post.date)}</time>{post.draft&&<span class="badge badge-draft">Draft · Local preview</span>}{[post.difficulty,post.os,post.ctf_category,post.event].filter(Boolean).map(t=><span class="badge">{t}</span>)}</div><div class="tags">{post.tags.map(tag=><span class="tag">{tag}</span>)}</div></header>
+    {post.headings.length>0&&<details class="article-toc"><summary><Icon name="chevron-down" class="toc-chevron" />On this page · {post.headings.length} sections</summary><ol>{post.headings.map(h=><li class:list={{'toc-sub':h.depth>2}}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></details>}
+    <div class="article-body" set:html={post.html}></div>
+    <footer class="article-footer"><a href={`/${post.category}.html`} data-archive-return><Icon name="arrow-left" /> All {categoryLabel.toLowerCase()}</a>{next&&<a href={next.url}>Next field note: {next.title} <Icon name="arrow-right" /></a>}<a href="/">Return to pond <Icon name="arrow-up-right" /></a></footer>
+  </article>
+</Journal>

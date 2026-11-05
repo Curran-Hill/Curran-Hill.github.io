@@ -1,0 +1,17 @@
+---
+import Journal from '../../layouts/Journal.astro';
+import Icon from '../../components/Icon.astro';
+import { siteData } from '../../lib/site-data';
+import { siteImage, siteImageSource } from '../../lib/site-images';
+import { renderMarkdown } from '../../lib/content';
+const about=siteData.about;
+const intro=await renderMarkdown(about.body,siteImageSource);
+---
+<Journal title={about.title} subtitle={about.subtitle} active="about">
+  <div class="about-intro" set:html={intro.html}/>
+  <div class="section-heading"><h2>Certifications</h2></div>
+  {about.certifications.map(c=><div class="credential">{c.image&&<img src={siteImage(c.image)} alt={c.alt} width="90" height="90"/>}<div><p class="eyebrow">Certification</p><h3>{c.name}</h3><p>Completed {c.completed}</p>{c.expires&&<p>Expires {c.expires}</p>}</div></div>)}
+  <div class="section-heading"><h2>Awards &amp; competitions</h2></div>
+  <div class="award-grid">{about.awards.map(a=><article class="award-card"><p class="eyebrow">{a.date}</p><h3>{a.title}</h3><span class="award-role">{a.role}</span><p>{a.body}</p>{a.image&&<a class="image-button" href={siteImage(a.image)} data-expand-image data-alt={a.alt} aria-label={`Expand ${a.alt}`}><img src={siteImage(a.image)} alt={a.alt} loading="lazy" width={a.width||600} height={a.height||400} /><span class="image-caption">View certificate <Icon name="arrow-up-right" /></span></a>}</article>)}</div>
+  <p class="contact-note">Want to compare notes? <a href="/contact/" class="icon-link">Say hello at the mailbox <Icon name="arrow-up-right" /></a></p>
+</Journal>

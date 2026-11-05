@@ -1,0 +1,24 @@
+---
+import Base from './Base.astro';
+import Icon from '../components/Icon.astro';
+import { siteData } from '../lib/site-data';
+interface Props { title: string; subtitle?: string; active?: string; article?: boolean }
+const { title, subtitle = 'Observations, experiments, and things learned along the way.', active, article = false } = Astro.props;
+const tabs = [['About', '/about/', 'about','About'], ['HTB write-ups', '/htb.html', 'htb','HTB'], ['CTF write-ups', '/ctf.html', 'ctf','CTF'], ['Blog', '/blog.html', 'blog','Blog'], ['Contact', '/contact/', 'contact','Contact']];
+---
+<Base title={title} description={subtitle} article={article} journal>
+  <main id="main" class="journal-shell">
+    <div class="journal-topline"><a class="back-link" href="/"><Icon name="arrow-left" /> Return to pond</a>{article && active ? <a class="back-link archive-return" href={`/${active}.html`} data-archive-return>All {active==='blog'?'blog entries':`${active.toUpperCase()} write-ups`} <Icon name="arrow-right" /></a> : <span class="eyebrow">{siteData.name} / Field journal</span>}</div>
+    <div class="journal-book">
+      <div class="book-spine" aria-hidden="true"></div>
+      <nav class="journal-tabs" aria-label="Field journal sections">{tabs.map(([name, href, key, short]) => <a href={href} class:list={{active: active === key}} aria-label={name} aria-current={active === key ? (article?'location':'page') : undefined}><span class="tab-long">{name}</span><span class="tab-short" aria-hidden="true">{short}</span></a>)}</nav>
+      <div class="journal-content">
+        {!article && <header class="journal-heading"><p class="eyebrow">Field journal</p><h1>{title}</h1><p>{subtitle}</p></header>}
+        <slot />
+      </div>
+      <div class="journal-bottom"><span>Notes from a curious duck</span><a href="/#hunt">Pond discoveries <span data-hunt-count>0 / 5</span> <Icon name="arrow-up-right" /></a></div>
+    </div>
+  </main>
+  <template id="image-close-icon"><Icon name="close" /></template>
+  <script>import '../scripts/journal';</script>
+</Base>

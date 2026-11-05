@@ -1,0 +1,10 @@
+---
+import Journal from '../../layouts/Journal.astro';
+import Icon from '../../components/Icon.astro';
+import { siteData } from '../../lib/site-data';
+const { links,title,subtitle,note }=siteData.contact;
+---
+<Journal title={title} subtitle={subtitle} active="contact">
+  <div class="contact-links">{links.map(link=><a class="contact-card" href={link.href} target={link.href.startsWith('https')?'_blank':undefined} rel={link.href.startsWith('https')?'noopener noreferrer':undefined}><Icon name={link.icon as 'mail'|'code'|'profile'|'box'} class="contact-icon" /><div><h2>{link.name}</h2><p translate="no">{link.label}</p></div><Icon name="arrow-up-right" class="contact-arrow" />{link.href.startsWith('https')&&<span class="sr-only">Opens in a new tab</span>}</a>)}</div>
+  <p class="contact-note">{note}</p>
+</Journal>

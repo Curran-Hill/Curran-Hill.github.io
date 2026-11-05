@@ -1,0 +1,1091 @@
+/* DuckP0nd's 16-bit UI layer. Keep the detailed pond art and readable prose. */
+:root[data-design="pond16"] {
+  --px: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --frame-size: 4px;
+  --frame-image: url("/art/ui/frame-night.svg");
+  --frame-selected: url("/art/ui/frame-gold.svg");
+  --frame-shadow: #050c13;
+  --control-shadow: #050c13;
+  --surface: #152b32;
+  --raised: #203c40;
+  --step-ui: steps(2, end);
+  --ease-ui: steps(3, end);
+}
+:root[data-design="pond16"][data-theme="day"] {
+  --frame-image: url("/art/ui/frame-day.svg");
+  --frame-shadow: #7a9172;
+  --control-shadow: #7a9172;
+  --surface: #f4f5e9;
+  --raised: #d9e5d7;
+}
+
+/* Four shaded pixel bands and stepped corners, shared by every panel. */
+:root[data-design="pond16"]
+  :is(
+    .journal-book,
+    .button,
+    .directory-page,
+    .preferences,
+    .landmark-label,
+    .hunt-details,
+    .toast,
+    .archive-filters > summary,
+    .filter-panel,
+    .article-toc,
+    .lightbox,
+    .pond-directory > summary,
+    .overview-toggle,
+    .pond-hud,
+    .interact-button,
+    .search-input
+  ) {
+  border: var(--frame-size) solid transparent;
+  border-image-source: var(--frame-image);
+  border-image-slice: 4;
+  border-image-repeat: stretch;
+  border-radius: 0;
+  background-clip: padding-box;
+  backdrop-filter: none;
+  box-shadow: 4px 4px 0 var(--frame-shadow);
+}
+:root[data-design="pond16"] :is(.journal-book, .directory-page) {
+  --frame-image: url("/art/ui/frame-paper.svg");
+  --frame-shadow: #050c13;
+  --control-shadow: #ad9b77;
+}
+:root[data-design="pond16"]
+  :is(
+    .ui-icon,
+    .pond-art,
+    #pond-canvas,
+    .duck-portrait-plain,
+    .duck-portrait-propeller
+  ) {
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+}
+:root[data-design="pond16"] .ui-icon {
+  width: 20px;
+  height: 20px;
+}
+:root[data-design="pond16"] .preference-symbol {
+  width: 20px;
+  height: 20px;
+}
+:root[data-design="pond16"]
+  :is(
+    h1,
+    h2,
+    h3,
+    .journal-tabs a,
+    .directory-trigger-text strong,
+    .directory-page nav strong
+  ) {
+  font-family: var(--pixel);
+  font-weight: 500;
+  letter-spacing: 0;
+  -webkit-font-smoothing: none;
+}
+:root[data-design="pond16"] :is(.eyebrow, .directory-kicker) {
+  font: 400 16px/20px var(--pixel);
+  letter-spacing: 0;
+  text-transform: none;
+}
+:root[data-design="pond16"] :is(button, summary, input, a) {
+  transition-timing-function: var(--step-ui);
+}
+:root[data-design="pond16"]
+  :is(button, a, input, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+:root[data-design="pond16"]
+  :is(.button, .overview-toggle, .archive-filters > summary, .filter-button) {
+  transition:
+    transform 120ms var(--step-ui),
+    background-color 120ms var(--step-ui),
+    box-shadow 120ms var(--step-ui);
+}
+:root[data-design="pond16"]
+  :is(.button, .overview-toggle, .archive-filters > summary):active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--control-shadow);
+}
+:root[data-design="pond16"] .icon-button {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 0;
+  padding: 8px;
+}
+:root[data-design="pond16"] .icon-button:active {
+  transform: translateY(2px);
+}
+:root[data-design="pond16"] .wordmark svg {
+  width: 36px;
+  height: 42px;
+}
+:root[data-design="pond16"] kbd {
+  border: 1px solid var(--line);
+  border-bottom: 2px solid var(--muted);
+  border-radius: 0;
+  font: 400 12px/20px var(--body);
+}
+
+/* The journal reads as an illustrated game field guide, with a quiet ledger. */
+:root[data-design="pond16"] .journal-shell {
+  max-width: 1120px;
+  padding: 0 24px;
+}
+:root[data-design="pond16"] .journal-book {
+  overflow: visible;
+}
+:root[data-design="pond16"] .journal-content {
+  padding: 32px 48px 40px;
+}
+:root[data-design="pond16"] .journal-heading {
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+:root[data-design="pond16"] .journal-heading h1 {
+  font-size: 48px;
+  line-height: 56px;
+  margin: 8px 0 16px;
+}
+:root[data-design="pond16"] .post-header h1 {
+  font-size: 48px;
+  line-height: 56px;
+  margin: 8px 0 20px;
+}
+:root[data-design="pond16"] .journal-tabs {
+  gap: 8px;
+  padding: 12px 32px 0;
+  border-bottom: 2px solid var(--line);
+}
+:root[data-design="pond16"] .journal-tabs a {
+  min-height: 48px;
+  padding: 8px 16px;
+  border: 2px solid transparent;
+  border-bottom: 0;
+  border-radius: 0;
+  font-size: 18px;
+  line-height: 24px;
+}
+:root[data-design="pond16"] .journal-tabs a.active {
+  color: var(--paper);
+  background: var(--mint);
+  border-color: var(--mint);
+  box-shadow: inset 0 2px 0 #779575;
+}
+:root[data-design="pond16"] .not-found h1 {
+  font-size: 48px;
+  line-height: 56px;
+}
+:root[data-design="pond16"] .journal-topline {
+  backdrop-filter: none;
+  background: var(--bg);
+}
+:root[data-design="pond16"] .journal-bottom {
+  padding: 12px 32px 12px 48px;
+}
+:root[data-design="pond16"] .journal-bottom a {
+  gap: 8px;
+}
+:root[data-design="pond16"] .journal-bottom [data-hunt-count] {
+  margin-left: 0;
+}
+:root[data-design="pond16"] .archive-tools {
+  gap: 12px;
+}
+:root[data-design="pond16"] .search-input {
+  height: 48px;
+  min-height: 48px;
+  padding: 8px 12px;
+  line-height: 24px;
+  box-shadow: inset 2px 2px 0 var(--raised);
+}
+:root[data-design="pond16"] .archive-filters > summary {
+  font: 400 18px/24px var(--pixel);
+  padding: 8px 12px;
+}
+:root[data-design="pond16"] .filter-button {
+  border: 2px solid transparent;
+  border-radius: 0;
+}
+:root[data-design="pond16"] .filter-button[aria-pressed="true"] {
+  border-color: var(--mint);
+  color: var(--text);
+  background: var(--raised);
+  box-shadow: inset 2px 2px 0 var(--paper-edge);
+}
+:root[data-design="pond16"] .post-card {
+  padding: 24px;
+  border: 0;
+  border-left: 4px solid var(--mint);
+  border-bottom: 2px solid var(--line);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: none;
+}
+:root[data-design="pond16"] .post-card:hover {
+  border-color: var(--accent);
+}
+:root[data-design="pond16"] .post-card h2 {
+  font-size: 32px;
+  line-height: 40px;
+  margin: 12px 0;
+}
+:root[data-design="pond16"] :is(.badge, .tag, .article-body :not(pre) > code) {
+  border-radius: 0;
+}
+:root[data-design="pond16"] .post-card-meta {
+  row-gap: 8px;
+  line-height: 24px;
+}
+:root[data-design="pond16"]
+  :is(.section-heading h2, .empty-state h2, .contact-card h2) {
+  font-size: 32px;
+  line-height: 40px;
+  white-space: normal;
+}
+:root[data-design="pond16"] .section-heading {
+  margin-top: 40px;
+}
+:root[data-design="pond16"] .award-card h3 {
+  font-size: 24px;
+  line-height: 32px;
+}
+:root[data-design="pond16"] :is(.award-card, .credential, .contact-card) {
+  border: 2px solid var(--line);
+  border-radius: 0;
+  padding: 24px;
+}
+:root[data-design="pond16"] .contact-card {
+  gap: 16px;
+}
+:root[data-design="pond16"] .contact-card h2 {
+  font-size: 24px;
+  line-height: 32px;
+}
+:root[data-design="pond16"] .contact-icon {
+  min-width: 20px;
+}
+:root[data-design="pond16"] .article-body h1 {
+  font-size: 32px;
+  line-height: 40px;
+}
+:root[data-design="pond16"] .article-body h2 {
+  font-size: 28px;
+  line-height: 36px;
+}
+:root[data-design="pond16"] .article-body h3 {
+  font-size: 24px;
+  line-height: 32px;
+}
+:root[data-design="pond16"] .article-body :is(pre, pre > button) {
+  border-radius: 0;
+}
+:root[data-design="pond16"] .article-body pre {
+  border-width: 2px;
+  padding-top: 64px !important;
+}
+:root[data-design="pond16"] .article-body pre > button {
+  min-height: 44px;
+  min-width: 64px;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+:root[data-design="pond16"] .article-body img {
+  border-radius: 0;
+}
+:root[data-design="pond16"] .article-toc {
+  padding: 12px 20px;
+  font-size: 14px;
+}
+:root[data-design="pond16"] .article-toc summary {
+  font: 400 18px/24px var(--pixel);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+:root[data-design="pond16"] .article-toc .toc-chevron {
+  flex: none;
+  transform: rotate(-90deg);
+}
+:root[data-design="pond16"] .article-toc[open] .toc-chevron {
+  transform: rotate(0);
+}
+:root[data-design="pond16"] .article-toc summary::-webkit-details-marker {
+  display: none;
+}
+:root[data-design="pond16"] .article-toc li {
+  padding: 0;
+}
+:root[data-design="pond16"] .article-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+:root[data-design="pond16"] .article-toc ol {
+  padding-top: 8px;
+}
+
+:root[data-design="pond16"] .lightbox {
+  width: min(1100px, calc(100vw - 24px));
+  max-width: calc(100% - 24px);
+}
+:root[data-design="pond16"] .lightbox img {
+  max-width: 100%;
+}
+:root[data-design="pond16"] .lost-duck:hover {
+  border-radius: 0;
+}
+
+:root[data-design="pond16"] .pond-page[data-view="close-up"] .wordmark {
+  background: var(--bg);
+  padding: 4px;
+}
+:root[data-design="pond16"] .pond-page[data-view="close-up"] .pond-identity {
+  background: var(--bg);
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 0 4px;
+}
+
+/* Pond chrome borrows wood, ink, and brass from the cabin, without glass. */
+:root[data-design="pond16"] .pond-page .preferences {
+  background: var(--surface);
+  padding: 0 4px;
+}
+:root[data-design="pond16"] .pond-page .scene .landmark-label {
+  background: var(--surface);
+  padding: 8px 12px;
+  min-height: 56px;
+  gap: 8px;
+  backdrop-filter: none;
+}
+:root[data-design="pond16"] .pond-page .landmark strong {
+  font: 400 18px/24px var(--pixel);
+}
+:root[data-design="pond16"] .pond-page .landmark small {
+  font: 400 12px/16px var(--body);
+}
+:root[data-design="pond16"] .pond-page .landmark-number {
+  align-self: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+:root[data-design="pond16"]
+  .pond-page
+  .landmark:is(:hover, :focus-visible, .is-near)
+  .landmark-label {
+  border-image-source: var(--frame-selected);
+  background: var(--raised);
+}
+:root[data-design="pond16"] .pond-directory > summary {
+  background: var(--surface);
+  border-image-source: var(--frame-selected);
+  gap: 16px;
+}
+:root[data-design="pond16"] .directory-trigger-text strong {
+  font-size: 24px;
+  line-height: 32px;
+}
+:root[data-design="pond16"] .directory-trigger-text small {
+  margin-top: 4px;
+}
+:root[data-design="pond16"] .directory-cover {
+  border-radius: 0;
+  background: #785e3e;
+  border-color: #c7ad77;
+  box-shadow: 2px 2px 0 #e4dcc8;
+}
+:root[data-design="pond16"] .directory-page {
+  padding: 24px 24px 20px 32px;
+}
+:root[data-design="pond16"] .directory-heading h2 {
+  font-size: 32px;
+  line-height: 40px;
+  margin: 12px 0;
+}
+:root[data-design="pond16"] .directory-page nav strong {
+  font-size: 24px;
+  line-height: 32px;
+}
+:root[data-design="pond16"] .directory-page nav a:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+:root[data-design="pond16"] .directory-page nav a:hover .chapter-number {
+  color: var(--accent);
+}
+:root[data-design="pond16"]
+  .pond-page
+  :is(.overview-toggle, .pond-hud, .interact-button) {
+  background: var(--surface);
+}
+:root[data-design="pond16"] .overview-toggle,
+:root[data-design="pond16"] .interact-button {
+  font: 400 18px/24px var(--pixel);
+}
+:root[data-design="pond16"] .pond-hud {
+  min-height: 52px;
+}
+:root[data-design="pond16"] .pond-page .hunt-toggle [data-hunt-count] {
+  font: 400 16px/24px var(--pixel);
+}
+:root[data-design="pond16"] .hunt-details h2 {
+  font-size: 32px;
+  line-height: 36px;
+}
+:root[data-design="pond16"] .joystick {
+  border-radius: 0;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  box-shadow:
+    4px 4px 0 var(--frame-shadow),
+    inset 2px 2px 0 var(--raised);
+}
+:root[data-design="pond16"] .joystick-knob {
+  border-radius: 0;
+  border-width: 2px;
+  box-shadow: 2px 2px 0 var(--control-shadow);
+}
+:root[data-design="pond16"] .toast {
+  background: var(--surface);
+}
+:root[data-design="pond16"] .journal-book,
+:root[data-design="pond16"] .directory-page {
+  animation: open-field-guide 160ms steps(4, end);
+}
+@keyframes open-field-guide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  :root[data-design="pond16"] .pond-page .directory-trigger-text strong {
+    font-size: 24px;
+  }
+  :root[data-design="pond16"]
+    .pond-page:not([data-view="close-up"])
+    .landmark-label {
+    min-height: 48px;
+    padding: 4px 8px;
+  }
+  :root[data-design="pond16"]
+    .pond-page:not([data-view="close-up"])
+    .landmark
+    strong {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  :root[data-design="pond16"] .pond-page .overview-intro h2 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  :root[data-design="pond16"] .pond-page .overview-toggle {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 4px 8px;
+  }
+  :root[data-design="pond16"] .pond-page .pond-hud {
+    min-height: 48px;
+    padding: 0 8px;
+  }
+  :root[data-design="pond16"] .pond-page .preferences {
+    padding: 0;
+  }
+  :root[data-design="pond16"] .directory-page nav a {
+    min-height: 56px;
+    padding: 8px 0;
+  }
+}
+@media (max-width: 700px) {
+  :root[data-design="pond16"] .not-found h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  :root[data-design="pond16"] .journal-shell {
+    padding: 0 12px;
+  }
+  :root[data-design="pond16"] .journal-content {
+    padding: 24px 16px 28px 20px;
+  }
+  :root[data-design="pond16"] .journal-tabs {
+    gap: 0;
+    padding: 4px 8px 0;
+  }
+  :root[data-design="pond16"] .journal-tabs a {
+    padding: 8px 4px;
+    font-size: 16px;
+  }
+  :root[data-design="pond16"] :is(.journal-heading h1, .post-header h1) {
+    font-size: 32px;
+    line-height: 40px;
+    margin: 8px 0 12px;
+    overflow-wrap: anywhere;
+  }
+  :root[data-design="pond16"] .journal-bottom {
+    padding: 8px 16px 8px 20px;
+  }
+  :root[data-design="pond16"] .post-card {
+    padding: 20px;
+  }
+  :root[data-design="pond16"] .post-card-meta {
+    gap: 4px 8px;
+  }
+  :root[data-design="pond16"] .post-card h2 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  :root[data-design="pond16"] :is(.award-card, .credential, .contact-card) {
+    padding: 20px;
+  }
+  :root[data-design="pond16"] .wordmark svg {
+    width: 30px;
+    height: 35px;
+  }
+}
+@media (max-width: 360px) {
+  /* Keep the newly reachable southern shallows above the taller phone journal. */
+  :root[data-design="pond16"] .pond-page[data-view="close-up"] .scene {
+    top: -32px;
+  }
+  :root[data-design="pond16"] .pond-page .movement-ui {
+    bottom: 204px;
+  }
+  :root[data-design="pond16"] .wordmark svg {
+    width: 24px;
+    height: 28px;
+  }
+  :root[data-design="pond16"] .directory-trigger-text strong {
+    font-size: 22px;
+  }
+  :root[data-design="pond16"] .pond-control-hint {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root[data-design="pond16"] :is(.journal-book, .directory-page) {
+    animation: none;
+  }
+  :root[data-design="pond16"] * {
+    transition-duration: 0s;
+  }
+}
+:root[data-design="pond16"][data-motion="paused"]
+  :is(.journal-book, .directory-page) {
+  animation: none;
+}
+
+/* Usability contract: quiet controls, visible state, and one reading flow. */
+:root[data-design="pond16"] {
+  --focus-ring: var(--accent);
+  --feedback-duration: 120ms;
+}
+:root[data-design="pond16"] :is(a, button, summary, input) {
+  touch-action: manipulation;
+}
+:root[data-design="pond16"] :is(h1, h2, h3) {
+  text-wrap: balance;
+}
+:root[data-design="pond16"]
+  :is(.journal-content, .contact-card > div, .archive-search) {
+  min-width: 0;
+}
+:root[data-design="pond16"] :is(.journal-topline, .site-header) {
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+}
+:root[data-design="pond16"] .journal-topline {
+  padding-left: 0;
+  padding-right: 0;
+}
+:root[data-design="pond16"] .site-footer a {
+  min-height: 44px;
+}
+:root[data-design="pond16"]
+  :is(.text-button, .image-original, .post-breadcrumb a, .article-footer a) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+:root[data-design="pond16"]
+  :is(.text-button, .back-link, .article-footer a, .image-original):hover {
+  color: var(--mint);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+:root[data-design="pond16"] :is(.contact-card, .post-card):active {
+  background: var(--raised);
+}
+:root[data-design="pond16"] .journal-tabs a:focus-visible {
+  outline-offset: -6px;
+}
+:root[data-design="pond16"] .journal-tabs a.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+:root[data-design="pond16"] .back-link.archive-return {
+  margin-left: auto;
+}
+:root[data-design="pond16"] .post-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+:root[data-design="pond16"] .search-label {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+:root[data-design="pond16"] .archive-tools {
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+:root[data-design="pond16"] .archive-selection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 12px;
+}
+:root[data-design="pond16"] .archive-selection p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+:root[data-design="pond16"] .archive-selection .text-button {
+  flex: none;
+  min-width: 44px;
+  padding: 8px;
+}
+:root[data-design="pond16"] .filter-button:hover {
+  border-color: var(--mint);
+  background: var(--raised);
+}
+:root[data-design="pond16"] .filter-button:active {
+  box-shadow: inset 2px 2px 0 var(--paper-edge);
+}
+:root[data-design="pond16"] .empty-state {
+  border: 0;
+  padding: 32px 16px;
+  background: transparent;
+}
+:root[data-design="pond16"] .empty-state > p {
+  max-width: 48ch;
+  margin: 12px auto 20px;
+}
+:root[data-design="pond16"] .empty-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+:root[data-design="pond16"] .empty-actions .ui-icon {
+  width: 20px;
+  height: 20px;
+}
+:root[data-design="pond16"] .contact-links {
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+:root[data-design="pond16"] .contact-card {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 20px;
+  gap: 16px;
+  padding: 20px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+}
+:root[data-design="pond16"] .contact-card:hover,
+:root[data-design="pond16"] .contact-card:focus-visible {
+  background: var(--surface);
+}
+:root[data-design="pond16"] .contact-card :is(h2, p) {
+  margin: 0;
+}
+:root[data-design="pond16"] .contact-card p {
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+:root[data-design="pond16"] .image-button {
+  display: block;
+  color: var(--mint);
+  text-decoration: none;
+  background: transparent;
+}
+:root[data-design="pond16"] .image-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  min-height: 44px;
+}
+:root[data-design="pond16"] :is(.image-button, .image-expand):hover {
+  outline: 2px solid var(--mint);
+  outline-offset: 4px;
+}
+:root[data-design="pond16"] .image-expand {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 28px auto;
+  cursor: zoom-in;
+}
+:root[data-design="pond16"] .image-expand img {
+  margin: 0;
+}
+:root[data-design="pond16"] .heading-anchor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin-left: 4px;
+  opacity: 1;
+  color: var(--mint);
+  font-family: var(--pixel);
+  vertical-align: middle;
+}
+:root[data-design="pond16"] .heading-anchor:hover {
+  background: var(--raised);
+}
+:root[data-design="pond16"] .article-toc ol {
+  max-height: none;
+  overflow: visible;
+}
+:root[data-design="pond16"] .article-toc a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+:root[data-design="pond16"] .article-body pre {
+  padding: 16px !important;
+  scrollbar-width: thin;
+}
+:root[data-design="pond16"] .code-block {
+  margin: 24px 0;
+  border: 2px solid #51645c;
+  background: var(--surface);
+}
+:root[data-design="pond16"] .code-block pre {
+  margin: 0;
+  border: 0;
+}
+:root[data-design="pond16"] .code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 8px 4px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+}
+:root[data-design="pond16"] .code-toolbar button {
+  min-height: 44px;
+  min-width: 100px;
+  padding: 8px 12px;
+  border: 2px solid var(--mint);
+  background: var(--paper);
+  color: var(--text);
+}
+:root[data-design="pond16"] .code-toolbar button:hover {
+  background: var(--raised);
+}
+:root[data-design="pond16"] .code-toolbar button:active {
+  box-shadow: inset 2px 2px 0 var(--paper-edge);
+}
+:root[data-design="pond16"] .code-toolbar button:disabled {
+  border-style: dashed;
+}
+:root[data-design="pond16"] .lightbox {
+  padding: 60px 20px 16px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+:root[data-design="pond16"] .lightbox > button:first-child {
+  top: 8px;
+  right: 12px;
+}
+:root[data-design="pond16"] .lightbox img {
+  max-height: calc(100svh - 220px);
+}
+:root[data-design="pond16"] .lightbox :is(.image-retry, .image-original) {
+  position: static;
+  min-height: 44px;
+  font: 400 14px/20px var(--body);
+}
+:root[data-design="pond16"] .lightbox .image-retry {
+  padding: 8px 12px;
+  margin-right: 16px;
+}
+:root[data-design="pond16"] .directory-when-open,
+:root[data-design="pond16"] .pond-directory[open] .directory-when-closed {
+  display: none;
+}
+:root[data-design="pond16"] .pond-directory[open] .directory-when-open {
+  display: inline;
+}
+:root[data-design="pond16"] :is(.directory-page, .hunt-details) {
+  overscroll-behavior: contain;
+}
+:root[data-design="pond16"] :is(.directory-close, .hunt-close):hover {
+  color: var(--text);
+  background: var(--raised);
+}
+:root[data-design="pond16"] .hunt-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+:root[data-design="pond16"] .hunt-details > div {
+  padding-top: 20px;
+}
+:root[data-design="pond16"] .hunt-reset {
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+}
+:root[data-design="pond16"] .hunt-reset > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+:root[data-design="pond16"] .hunt-reset p {
+  font-size: 14px;
+}
+@media (max-width: 900px) {
+  :root[data-design="pond16"] .directory-page nav strong {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  :root[data-design="pond16"] .pond-toolbar {
+    bottom: max(24px, env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 700px) {
+  :root[data-design="pond16"] .journal-topline {
+    gap: 8px;
+  }
+  :root[data-design="pond16"] .back-link.archive-return {
+    font-size: 12px;
+    gap: 4px;
+  }
+  :root[data-design="pond16"] .journal-tabs a {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  :root[data-design="pond16"] .contact-card {
+    padding: 16px 0;
+    gap: 12px;
+  }
+  :root[data-design="pond16"] .article-toc {
+    padding: 8px 12px;
+    margin-bottom: 24px;
+  }
+  :root[data-design="pond16"] .article-body h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  :root[data-design="pond16"] .post-header {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+  }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  :root[data-design="pond16"] .pond-page .directory-page {
+    position: fixed;
+    inset: 12px 12px auto auto;
+    width: min(400px, calc(100vw - 24px));
+    max-height: calc(100svh - 24px);
+  }
+  :root[data-design="pond16"] .pond-page .hunt-details {
+    bottom: 12px;
+    top: 12px;
+    max-height: none;
+  }
+}
+@media (min-width: 701px) {
+  :root[data-design="pond16"] .site-header {
+    padding-left: max(24px, 4.3%, env(safe-area-inset-left));
+    padding-right: max(24px, 4.3%, env(safe-area-inset-right));
+  }
+}
+@media (max-width: 520px) {
+  :root[data-design="pond16"] .contact-card {
+    row-gap: 4px;
+  }
+  :root[data-design="pond16"] .contact-card > div {
+    display: contents;
+  }
+  :root[data-design="pond16"] .contact-card .contact-icon {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  :root[data-design="pond16"] .contact-card h2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  :root[data-design="pond16"] .contact-card .contact-arrow {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  :root[data-design="pond16"] .contact-card p {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    margin-top: 0;
+  }
+}
+@media (max-width: 360px) {
+  :root[data-design="pond16"] .archive-search {
+    flex-basis: 100%;
+  }
+}
+:root[data-design="pond16"] .search-input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+:root[data-design="pond16"] .header-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font: 400 16px/24px var(--pixel);
+}
+
+:root[data-design="pond16"] .journal-tabs a.active:focus-visible {
+  outline-color: var(--paper);
+}
+/* A landscape handheld keeps the field-guide controls beside a usable map. */
+@media (max-width: 900px) and (max-height: 520px) and (orientation: landscape) {
+  :root[data-design="pond16"] .pond-page .overview-intro {
+    display: none;
+  }
+  :root[data-design="pond16"] .pond-page .scene-viewport {
+    inset: 0;
+    height: 100%;
+  }
+  :root[data-design="pond16"] .pond-page .scene {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    left: auto;
+    width: min(100vw, 150svh);
+    height: 100svh;
+    margin: 0;
+    transform: translateY(-50%);
+  }
+  :root[data-design="pond16"] .pond-page .scene .landmark {
+    left: var(--label-x);
+    top: var(--label-y);
+  }
+  :root[data-design="pond16"] .pond-page .scene .landmark-contact {
+    left: 22%;
+  }
+  :root[data-design="pond16"] .pond-page .scene .landmark-label {
+    min-height: 44px;
+    padding: 4px 8px;
+  }
+  :root[data-design="pond16"] .pond-page .landmark strong {
+    font: 400 16px/24px var(--pixel);
+  }
+  :root[data-design="pond16"]
+    .pond-page
+    :is(.landmark small, .landmark-number, .landmark-arrow) {
+    display: none;
+  }
+  :root[data-design="pond16"] .pond-toolbar {
+    left: max(16px, env(safe-area-inset-left));
+    right: auto;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: 288px;
+  }
+  :root[data-design="pond16"] .pond-directory > summary {
+    min-height: 64px;
+    gap: 12px;
+  }
+  :root[data-design="pond16"] .directory-cover {
+    width: 32px;
+    height: 40px;
+  }
+  :root[data-design="pond16"] .directory-trigger-text strong {
+    font: 400 20px/24px var(--pixel);
+  }
+  :root[data-design="pond16"]
+    :is(.directory-trigger-text small, .pond-control-hint) {
+    display: none;
+  }
+  :root[data-design="pond16"] .pond-page .movement-ui {
+    bottom: 148px;
+  }
+  :root[data-design="pond16"] .pond-world-note {
+    left: auto;
+    right: 16px;
+    transform: none;
+  }
+}
+:root[data-design="pond16"]
+  :is(
+    .pond-directory > summary,
+    .overview-toggle,
+    .hunt-toggle,
+    .directory-recent a
+  ):hover {
+  background: var(--raised);
+}
+:root[data-design="pond16"] .overview-toggle[aria-pressed="true"] {
+  border-image-source: var(--frame-selected);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+:root[data-design="pond16"] .pond-hud:has(.hunt-toggle[aria-expanded="true"]) {
+  border-image-source: var(--frame-selected);
+}
+:root[data-design="pond16"] :is(.directory-close, .hunt-toggle):active {
+  transform: translateY(2px);
+}
+:root[data-design="pond16"]
+  :is(.article-body a, .directory-footer a, .site-footer a):hover {
+  color: var(--text);
+  text-decoration-thickness: 2px;
+}
+:root[data-design="pond16"] :is(.wordmark, .image-expand) {
+  min-height: 44px;
+}
+:root[data-design="pond16"] :is(.journal-tabs a, .header-nav a) {
+  min-width: 44px;
+}
+@media (max-width: 360px) {
+  :root[data-design="pond16"] .journal-tabs {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  :root[data-design="pond16"] .journal-tabs a {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+@media (max-width: 700px) {
+  :root[data-design="pond16"] .journal-tabs a {
+    flex: 1 0 auto;
+  }
+}

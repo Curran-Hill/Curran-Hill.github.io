@@ -1,0 +1,9 @@
+---
+import { rubberDuck, duckHeadroom } from '../lib/duck-sprite';
+interface Props { class?: string; mascot?: boolean }
+const { class:className='',mascot=false }=Astro.props;
+---
+{mascot ? <Fragment>
+  <svg class={`duck-portrait-plain ${className}`} viewBox="0 0 36 32" aria-hidden="true" shape-rendering="crispEdges">{rubberDuck().map(p=><rect x={p.x} y={p.y} width={p.width} height="1" fill={p.color}/>)}</svg>
+  <svg class={`duck-portrait-propeller ${className}`} viewBox={`0 -${duckHeadroom} 36 ${32+duckHeadroom}`} aria-hidden="true" shape-rendering="crispEdges">{rubberDuck(true).map(p=><rect x={p.x} y={p.y} width={p.width} height="1" fill={p.color}/>)}</svg>
+</Fragment> : <svg class={className} viewBox="0 0 32 32" fill="none" aria-hidden="true" shape-rendering="crispEdges"><path fill="#f6c85f" d="M10 4h12v3h4v14h-3v6H7v-3H4V14h6V4Z"/><path fill="#ffe39a" d="M13 8h8v3h3v8H12v-3h-2v-5h3V8Z"/><path fill="#f6c85f" d="M8 18h15v6H8z"/><path fill="#dc9b3e" d="M7 24h16v3H7z"/><path fill="#ed9d49" d="M23 14h7v4h-7z"/><path fill="#132a30" d="M19 11h3v3h-3z"/></svg>}

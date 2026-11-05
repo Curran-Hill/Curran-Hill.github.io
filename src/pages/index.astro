@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import Duck from '../components/Duck.astro';
+import Icon from '../components/Icon.astro';
+import '../styles/pond.css';
+import { getPosts } from '../lib/content';
+import { lostDucks } from '../lib/game';
+import { quackSources } from '../lib/quacks';
+import { siteData } from '../lib/site-data';
+const posts=(await getPosts(import.meta.env.DEV)).slice(0,2);
+const destinations=[
+ {id:'about',x:28,y:37,overview:[20,28],number:'01',place:'Cabin',name:'About me',href:'/about/',description:'The person behind the pond. Certifications & competitions.'},
+ {id:'htb',x:74,y:35,overview:[60,16],number:'02',place:'Noticeboard',name:'HTB write-ups',href:'/htb.html',description:'Machines explored and paths untangled.'},
+ {id:'ctf',x:86,y:45,overview:[77,43],number:'03',place:'Flag station',name:'CTF write-ups',href:'/ctf.html',description:'Challenges, curious puzzles, and captured flags.'},
+ {id:'blog',x:71,y:78,overview:[69,91],number:'04',place:'Dockside',name:'The blog',href:'/blog.html',description:'Notes from whatever rabbit hole I’m in.'},
+ {id:'contact',x:19,y:69,overview:[18,68],number:'05',place:'Mailbox',name:'Say hello',href:'/contact/',description:'Find me elsewhere, or leave a little ripple.'},
+];
+const landmarkStyle=(d:typeof destinations[number])=>
+ `--label-x:${d.x}%;--label-y:${d.y}%;--overview-x:${d.overview[0]}%;--overview-y:${d.overview[1]}%`;
+---
+<Base home>
+<main id="main" class="pond-main">
+  <h1 class="sr-only">{siteData.name} — {siteData.owner}’s cybersecurity portfolio</h1>
+  <p class="pond-identity">{siteData.owner} <span>·</span> {siteData.homeSubtitle}</p>
+  <section class="pond-region" aria-label="Explore the pond">
+    <div class="overview-intro"><p class="eyebrow">Explore the pond</p><h2>{siteData.owner}’s pond</h2><p>Choose a place or open the field journal</p></div>
+    <div class="scene-viewport" tabindex="0" aria-label="Pond map. Choose a labeled destination.">
+      <div class="scene">
+        <img class="pond-art art-night" src="/art/pond-night.png" alt="A pixel-art pond with a cozy cabin, noticeboard, competition pennants, mailbox, and a field journal on the dock." width="1536" height="1024" fetchpriority="high" />
+        <img class="pond-art art-day" src="/art/pond-day.png" alt="" width="1536" height="1024" aria-hidden="true" />
+        <canvas id="pond-canvas" width="768" height="512" aria-hidden="true"></canvas>
+        <div class="landmarks">{destinations.map(d=><a class={`landmark landmark-${d.id}`} data-landmark={d.id} href={d.href} style={landmarkStyle(d)}><span class="landmark-label"><span class="landmark-number">{d.number}</span><span><small>{d.place}</small><strong>{d.name}</strong></span><Icon name="arrow-up-right" class="landmark-arrow" /></span></a>)}</div>
+        <div class="collectibles">{lostDucks.map(d=><button class="lost-duck" data-duck={d.id} style={`left:${d.x*100}%;top:${d.y*100}%`} aria-label={`Collect lost rubber duck: ${d.hint}`} title={d.hint}><Duck/></button>)}</div>
+      </div>
+    </div>
+    <div class="pond-toolbar">
+      <details class="pond-directory" id="directory">
+        <summary><span class="directory-cover" aria-hidden="true"><span>FIELD<br/>JOURNAL</span></span><span class="directory-trigger-text"><strong><span class="directory-when-closed">Open field journal</span><span class="directory-when-open">Close field journal</span></strong><small>About · Write-ups · Contact</small></span><Icon name="chevron-up" class="directory-chevron" /></summary>
+        <div class="directory-page">
+          <header class="directory-heading"><span class="directory-kicker">{siteData.name} / Vol. 01</span><button class="directory-close" aria-label="Close field journal"><Icon name="close" /></button><h2>Field journal</h2><p>{siteData.owner} · {siteData.directorySubtitle}</p></header>
+          <nav aria-label="Field journal directory"><ol>{destinations.map(d=><li><a href={d.href}><span class="chapter-number">{d.number}</span><span><strong>{d.name}</strong><small>{d.description}</small></span><Icon name="arrow-up-right" class="chapter-arrow" /></a></li>)}</ol></nav>
+          <section class="directory-recent" aria-label="Recent notes"><p class="directory-kicker">Recent notes</p>{posts.map(p=><a href={p.url}><span><small>{p.category==='blog'?'Blog':p.category.toUpperCase()}</small> {p.title}</span><Icon name="arrow-up-right" /></a>)}</section>
+          <footer class="directory-footer"><a href="/feed.xml">RSS <Icon name="arrow-up-right" /></a></footer>
+        </div>
+      </details>
+      <div class="pond-controls">
+        <button class="overview-toggle" aria-pressed="false"><Icon name="overview" /> Overview</button>
+        <p class="pond-control-hint" id="movement-help"><span class="desktop-help">Click water or use <kbd>WASD</kbd> / <kbd aria-label="arrow keys">↑↓←→</kbd></span><span class="mobile-help">Tap water to swim</span><span class="sr-only">. E or Enter interacts with a nearby landmark. Escape stops movement.</span></p>
+        <div class="pond-hud" id="hunt"><button class="hunt-toggle" aria-label="Pond discoveries" aria-expanded="false" aria-controls="hunt-details"><Duck/><span><small>Lost duck club</small><strong><span data-hunt-count>0 / 5</span> discovered</strong></span><span class="hunt-progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><Icon name="chevron-up" class="hunt-chevron" /></button></div>
+      </div>
+    </div>
+    <p class="pond-world-note"><span class="night-day-label">Night</span> at the pond</p>
+    <div id="hunt-details" class="hunt-details" role="region" aria-labelledby="hunt-title" hidden><button class="hunt-close icon-button" aria-label="Close discoveries"><Icon name="close" /></button><div><p class="eyebrow">Lost duck club</p><h2 id="hunt-title">Five little ducks went wandering</h2><p>Find five rubber ducks around the pond. Click one or swim close to bring it home. Find all five to earn a propeller hat.</p><ul class="hunt-list">{lostDucks.map(d=><li data-hint={d.id}><span aria-hidden="true">◇</span> {d.hint}</li>)}</ul><p class="reward-message" aria-live="polite"></p><button class="text-button reset-hunt" aria-expanded="false" aria-controls="hunt-reset">Reset discoveries</button><div id="hunt-reset" class="hunt-reset" hidden><p>Start over? This removes your discoveries and propeller hat from this browser.</p><div><button class="button confirm-reset">Start over</button><button class="text-button cancel-reset">Keep discoveries</button></div></div></div><Duck mascot class="hunt-mascot"/></div>
+    <div class="movement-ui"><div class="interact-row"><button class="button interact-button" aria-keyshortcuts="E Enter" disabled><span class="interact-label">Swim toward a landmark</span><Icon name="arrow-up-right" /></button></div><button class="joystick" aria-label="Movement joystick" aria-describedby="movement-help"><span class="joystick-arrows" aria-hidden="true"><Icon name="arrow-up" class="stick-up" /><Icon name="arrow-left" class="stick-left" /><Icon name="arrow-right" class="stick-right" /><Icon name="arrow-down" class="stick-down" /></span><span class="joystick-knob" aria-hidden="true"></span></button></div>
+    <noscript><style>.movement-ui,.pond-control-hint,.overview-toggle,.pond-hud,.collectibles,.preferences{display:none}.directory-close{display:none!important}</style></noscript>
+  </section>
+</main>
+<audio id="pond-quack" src={quackSources[0]} preload="none" hidden></audio>
+<div class="toast" role="status" aria-live="polite"></div>
+<script>import '../scripts/pond';</script>
+</Base>

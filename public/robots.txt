@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.duckp0nd.com/sitemap.xml

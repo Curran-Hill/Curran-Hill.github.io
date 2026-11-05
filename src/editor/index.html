@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-design="pond16" data-theme="day">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="pond-editor-token" content="__EDITOR_TOKEN__" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/__editor/assets/editor.css" />
+  <title>Pond keeper · DuckP0nd local editor</title>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to editor</a>
+  <header class="editor-header">
+    <div class="editor-brand"><span class="brand-sprite" data-icon="journal" aria-hidden="true"></span><div><h1>Pond keeper</h1><p>DuckP0nd local editor</p></div></div>
+    <a class="button secondary" href="/" target="_blank" rel="noopener">View pond <span data-icon="arrow-up-right" aria-hidden="true"></span></a>
+  </header>
+  <div class="editor-shell">
+    <aside class="chapters">
+      <nav aria-label="Editor sections">
+        <button type="button" data-section="posts" aria-current="page"><span>01</span> Posts</button>
+        <button type="button" data-section="about"><span>02</span> About &amp; awards</button>
+        <button type="button" data-section="contact"><span>03</span> Contact</button>
+        <button type="button" data-section="pond"><span>04</span> Pond settings</button>
+      </nav>
+      <p class="local-note"><span class="desktop-note">Edits save to this computer. Preview them locally, then publish through your GitHub workflow.</span><span class="mobile-note">Local changes. Publish through GitHub.</span></p>
+      <details class="help"><summary>Where do edits go?</summary><p>Posts stay in <code>_posts</code>. Profile and pond settings live in <code>_data/site.json</code>. Images go into the shared Obsidian attachments folder.</p><p>Each overwritten file is backed up in <code>.editor-backups</code>. You can keep using Obsidian alongside this editor.</p></details>
+    </aside>
+    <main id="workspace" tabindex="-1">
+      <div id="feedback" class="feedback" role="status" aria-live="polite">Opening your field journal…</div>
+      <div id="error" class="error" role="alert" tabindex="-1" hidden></div>
+      <div id="content" aria-busy="true"></div>
+      <noscript><p>This local file editor needs JavaScript. Your public journal remains readable without it. You can also edit posts directly in Obsidian.</p></noscript>
+    </main>
+  </div>
+  <dialog id="discard-dialog" aria-labelledby="discard-title" aria-describedby="discard-description">
+    <form method="dialog"><h2 id="discard-title">Keep your changes?</h2><p id="discard-description">You have unsaved edits. Save them before leaving, or discard them to continue.</p><div class="dialog-actions"><button value="cancel" autofocus>Keep editing</button><button value="discard" class="secondary">Discard changes</button></div></form>
+  </dialog>
+  <script type="module" src="/__editor/assets/main.js"></script>
+</body>
+</html>

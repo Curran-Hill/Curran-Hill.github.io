@@ -1,0 +1,17 @@
+---
+import Icon from './Icon.astro';
+---
+<div class="preferences" role="group" aria-label="Pond settings">
+  <button class="icon-button theme-toggle" aria-label="Switch to day" title="Switch to day">
+    <span class="preference-symbol"><Icon name="moon" class="when-night" /><Icon name="sun" class="when-day" /></span>
+    <span class="setting-label">Night</span>
+  </button>
+  <button class="icon-button sound-toggle" aria-label="Occasional quacks" aria-pressed="true" title="Mute occasional quacks">
+    <span class="preference-symbol"><Icon name="volume" class="when-sound" /><Icon name="muted" class="when-muted" /></span>
+    <span class="sound-label setting-label">Quacks on</span>
+  </button>
+  <button class="icon-button motion-toggle" aria-label="Pause animations" aria-pressed="false" title="Pause animations">
+    <span class="preference-symbol"><Icon name="pause" class="when-running" /><Icon name="play" class="when-paused" /></span>
+    <span class="motion-label sr-only">Pause animations</span>
+  </button>
+</div>

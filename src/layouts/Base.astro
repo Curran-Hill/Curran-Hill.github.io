@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import '../styles/journal.css';
+import '../styles/pixel.css';
+import Duck from '../components/Duck.astro';
+import Preferences from '../components/Preferences.astro';
+import Icon from '../components/Icon.astro';
+import { siteData } from '../lib/site-data';
+interface Props { title?: string; description?: string; home?: boolean; article?: boolean; journal?: boolean }
+const {title = `${siteData.owner}’s cybersecurity field journal`, description = `${siteData.owner}’s cybersecurity field journal. Hack The Box write-ups, CTF discoveries, and a pixel-art pond to explore.`, home = false, article = false, journal = false} = Astro.props;
+const pagePath=Astro.url.pathname.replace(/\.html\/$/,'.html').replace(/^\/404\/$/,'/404.html');
+const canonical = new URL(pagePath, 'https://www.duckp0nd.com');
+---
+<!doctype html>
+<html lang="en" data-theme="night" data-design="pond16">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1520" />
+  <title>{title} | {siteData.name}</title><meta name="description" content={description} />
+  <link rel="canonical" href={canonical} /><link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title={`${siteData.name} field journal`} href="/feed.xml" />
+  <noscript><style>.preferences{display:none!important}</style></noscript>
+  <meta property="og:title" content={`${title} | {siteData.name}`} /><meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} /><meta property="og:type" content={article ? 'article' : 'website'} />
+  <meta property="og:image" content="https://www.duckp0nd.com/art/pond-night.png" />
+  <script is:inline>
+    try {
+      const theme = localStorage.getItem('duckpond:theme');
+      if (theme === 'day') { document.documentElement.dataset.theme = 'day'; document.querySelector('meta[name="theme-color"]').setAttribute('content','#e5eee3'); }
+      const paused = localStorage.getItem('duckpond:motion');
+      if (paused === 'paused' || (paused !== 'running' && matchMedia('(prefers-reduced-motion: reduce)').matches)) document.documentElement.dataset.motion = 'paused';
+    } catch { if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.dataset.motion = 'paused'; }
+  </script>
+</head>
+<body class:list={[home ? 'pond-page' : 'journal-page', {'has-journal': journal}]}>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <a href="/" class="wordmark" aria-label={`${siteData.name} home`} translate="no"><Duck mascot /><span>{siteData.name==='DuckP0nd'?<>DuckP<span class="wordmark-zero">0</span>nd</>:siteData.name}<span class="wordmark-dot">.</span></span></a>
+    {!journal && <nav class="header-nav" aria-label="Main navigation">
+      <a href="/about/" aria-current={pagePath === '/about/' ? 'page' : undefined}>About</a>
+      <a href="/htb.html" aria-current={pagePath === '/htb.html' ? 'page' : undefined}>HTB</a>
+      <a href="/ctf.html" aria-current={pagePath === '/ctf.html' ? 'page' : undefined}>CTF</a>
+      <a href="/blog.html" aria-current={pagePath === '/blog.html' ? 'page' : undefined}>Blog</a>
+      <a href="/contact/" aria-current={pagePath === '/contact/' ? 'page' : undefined}>Contact</a>
+    </nav>}
+    <Preferences />
+  </header>
+  <slot />
+  <footer class="site-footer"><span>© {new Date().getFullYear()} {siteData.owner} <span class="footer-dot">·</span> Built with curiosity</span><a href="/feed.xml" class="icon-link">RSS <Icon name="arrow-up-right" /></a><span class="footer-quack">Stay a little ducky</span></footer>
+  <script>import '../scripts/preferences'; import '../scripts/live-preview';</script>
+</body>
+</html>

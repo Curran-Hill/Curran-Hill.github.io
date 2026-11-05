@@ -1,0 +1,30 @@
+---
+import Journal from '../layouts/Journal.astro';
+import Duck from './Duck.astro';
+import Icon from './Icon.astro';
+import { getPosts, dateLabel, type Category } from '../lib/content';
+interface Props { category: Category }
+const { category } = Astro.props;
+const titles = { htb: 'Hack The Box write-ups', ctf: 'CTF write-ups', blog: 'Notes from the pond' };
+const subtitles = { htb: 'Machines explored, paths untangled, and lessons brought back to shore.', ctf: 'A collection of challenges, curious puzzles, and the routes to their flags.', blog: 'Things I’m learning, things I’m building, and thoughts along the way.' };
+const posts = (await getPosts(import.meta.env.DEV)).filter(p => p.category === category);
+const events = [...new Set(posts.map(p=>p.event).filter((v): v is string=>!!v))];
+const groups = category === 'htb' ? [{ name:'Difficulty', key:'difficulty', values:['Easy','Medium','Hard','Insane'] }, { name:'OS', key:'os', values:['Linux','Windows'] }] : category === 'ctf' ? [{name:'Category',key:'ctf_category',values:['Web','Pwn','Crypto','Rev','Forensics','OSINT','Misc']}, ...(events.length ? [{name:'Event',key:'event',values:events}] : [])] : [];
+---
+<Journal title={titles[category]} subtitle={subtitles[category]} active={category}>
+  {posts.length > 0 ? <>
+    <div class="archive-tools" data-archive-filters><div class="archive-search"><label class="search-label" for="post-search">Search write-ups</label><input id="post-search" name="q" class="search-input" type="search" placeholder="Title, tag, or topic…" autocomplete="off" spellcheck="false" /></div>
+      {groups.length>0 && <details class="archive-filters"><summary>Filters <span data-filter-count hidden aria-hidden="true">0</span><Icon name="chevron-down" class="filter-chevron" /></summary><div class="filter-panel">
+      {groups.map(group => <fieldset class="filter-group" data-filter-group={group.key}><legend>{group.name}</legend><button class="filter-button" data-value="" aria-pressed="true">All{group.key==='event'?' events':''}</button>{group.values.map(value=><button class="filter-button" data-value={value.toLowerCase()} aria-pressed="false">{value}</button>)}</fieldset>)}
+      <button class="text-button reset-filters">Clear search and filters</button></div></details>}
+    </div>
+    <div class="archive-selection" hidden><p data-current-filters></p><button class="text-button clear-filters">Clear</button></div>
+    <noscript><style>.archive-tools{display:none}</style><p class="contact-note">All entries are listed below. Search and filters become available with JavaScript.</p></noscript>
+    <div class="results-line"><span role="status" aria-live="polite" data-results>{posts.length} {posts.length===1?'entry':'entries'}</span><span class="sort-order">Newest first <Icon name="arrow-down" /></span></div>
+    <ul class="post-list">{posts.map(post => <li class="post-card" data-post data-search={[post.title,...post.tags,post.os,post.event,post.ctf_category,post.difficulty].filter(Boolean).join(' ').toLowerCase()} data-difficulty={post.difficulty?.toLowerCase()} data-os={post.os?.toLowerCase()} data-ctf_category={post.ctf_category?.toLowerCase()} data-event={post.event?.toLowerCase()}>
+      <div class="post-card-meta"><time datetime={post.date}>{dateLabel(post.date)}</time>{post.draft&&<span class="badge badge-draft">Draft · Local preview</span>}{post.difficulty&&<span class={`badge badge-${post.difficulty.toLowerCase()}`}>{post.difficulty}</span>}{post.os&&<span class="badge">{post.os}</span>}{post.ctf_category&&<span class="badge">{post.ctf_category}</span>}{post.event&&<span class="badge">{post.event}</span>}</div>
+      <h2><a href={post.url}>{post.title} <Icon name="arrow-up-right" /></a></h2><div class="tags">{post.tags.map(tag=><span class="tag">{tag}</span>)}</div>
+    </li>)}</ul>
+    <div class="empty-state" data-no-results hidden><Duck /><h2>No matching notes</h2><p>No entries match your search and filters.</p><button class="text-button clear-filters">Clear search and filters</button></div>
+  </> : <div class="empty-state"><Duck mascot /><h2>Notes in progress</h2><p>{category==='blog' ? 'No blog entries yet. In the meantime, follow a machine walkthrough or a captured flag.' : 'New write-ups will appear here as they are published.'}</p><div class="empty-actions"><a href="/htb.html" class="icon-link">Read HTB write-ups <Icon name="arrow-up-right" /></a><a href="/ctf.html" class="icon-link">Read CTF write-ups <Icon name="arrow-up-right" /></a></div></div>}
+</Journal>

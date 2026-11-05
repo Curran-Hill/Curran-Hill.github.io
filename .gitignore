@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+public/attachments/
+_posts/**/.obsidian/workspace*.json
+.DS_Store
+
+.editor-backups/
+
+_site/
+__pycache__/

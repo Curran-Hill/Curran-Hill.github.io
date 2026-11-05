@@ -1,85 +1,14 @@
-# Site Workflow
+# Writing and publishing
 
-## Writing Posts
+See [README.md](README.md) for setup, Obsidian screenshots, draft previews, frontmatter, and deployment.
 
-Posts live in `_posts/`. Use Obsidian with the vault set to `_posts/`.
+For browser editing, run `npm run admin` and follow [EDITING.md](EDITING.md). It saves the same files and supports About, awards, Contact and pond settings. Publishing still follows steps 5–6 below; [PUBLISHING.md](PUBLISHING.md) gives exact commands for the connected release checkout.
 
-Templates are in `_posts/Templates/`:
-- `YYYY-MM-DD-HTB-title.md` — for HTB write-ups
-- `YYYY-MM-DD-CTF-title.md` — for CTF write-ups
-- `YYYY-MM-DD-blog-title.md` — for blog posts
+1. Open `_posts` as your Obsidian vault.
+2. Create a post with `npm run new -- htb "Box Name"` (or `ctf` / `blog`).
+3. Write Markdown and paste screenshots normally.
+4. Run `npm run dev` to preview the draft and check its images. Saving notes or pasting images refreshes the preview automatically.
+5. Set `published: true`, then run `npm run check`, `npm test`, and `npm run build`.
+6. Commit and push to the existing GitHub repository when ready. The configured Pages workflow publishes pushes to `main`.
 
-### HTB Post Frontmatter
-```yaml
----
-layout: post
-title: Box Name
-date: YYYY-MM-DD
-categories: htb
-difficulty: Easy | Medium | Hard | Insane
-os: Linux | Windows
-tags:
-  - Tag1
-  - Tag2
-thumbnail: assets/images/htb_imgs/BoxName/thumbnail.png
----
-```
-
-### CTF Post Frontmatter
-```yaml
----
-layout: post
-title: Challenge Name
-date: YYYY-MM-DD
-categories: ctf
-event: EventName
-ctf_category: Web | Pwn | Crypto | Rev | Forensics | OSINT | Misc
-tags:
-  - Tag1
-  - Tag2
----
-```
-
-File goes in `_posts/ctf/`.
-
-### Blog Post Frontmatter
-```yaml
----
-layout: post
-title: "Post Title"
-date: YYYY-MM-DD
-categories: blog
-tags:
-  - Tag1
----
-```
-
-### To suppress a draft without deleting it
-Add `published: false` to the frontmatter.
-
----
-
-## Local Development (no publishing)
-
-```bash
-bundle exec jekyll serve
-```
-
-Site runs at `http://localhost:4000`. Live-reloads on file save.
-
-First time only (install dependencies):
-```bash
-bundle install
-```
-
----
-
-## Publishing
-
-```bash
-git add .
-git commit -m "your message"
-git push origin main
-```
-
-GitHub Actions builds and deploys automatically. Live within ~1-2 minutes at `https://Curran-Hill.github.io`.
+Existing published filenames and dates determine their URLs. Keep them stable. Personal Obsidian workspace files, templates, and drafts are excluded from the website output. Drafts committed to the public GitHub repository are still readable on GitHub. The production build also checks every local page, image, and heading link.
